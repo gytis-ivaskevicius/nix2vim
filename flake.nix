@@ -8,10 +8,10 @@
 
   outputs = { self, flake-utils, nixpkgs }:
     let
-      dsl = import ./dsl.nix { inherit (nixpkgs) lib; };
+      dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
 
       overlay = prev: final: with prev; {
-        utils = callPackage ./utils.nix { inherit nixpkgs; };
+        utils = callPackage ./lib/utils.nix { inherit nixpkgs; };
         config = utils.makeNeovimConfig {
           python3 = python3;
           nodejs = nodejs;
