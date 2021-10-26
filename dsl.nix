@@ -39,6 +39,7 @@ let
   };
 in
 {
+  inherit nix2lua;
   flatten = obj: recurse { } [ ] obj;
   toTable = content: mkCustomType "table" content;
   toFuncCall = content: mkCustomType "funcCall" content;
