@@ -33,7 +33,7 @@
       {
         defaultPackage = (overlay pkgs pkgs).config.pluginsScript;
 
-        checks = import ./checks.nix { inherit pkgs dsl; inherit (flake-utils.lib) check-utils; };
+        checks = import ./checks { inherit pkgs dsl; inherit (flake-utils.lib) check-utils; };
       }
     );
 

@@ -25,7 +25,7 @@ let
     foldl'
       (sum: name:
         let it = flattened.${name}; in
-        sum + "\n" + typeConverters.${it.subtype or ""} name (it.content or it)
+        sum + typeConverters.${it.subtype or ""} name (it.content or it) + "\n"
       )
       ""
       (attrNames flattened);
@@ -63,7 +63,8 @@ let
     inherit subtype content;
     type = nix2vim;
   };
-in rec {
+in
+rec {
   inherit nix2lua flatAttrs2Lua;
   attrs2Lua = attrs: flatAttrs2Lua (flatten attrs);
   flatten = obj: recurse { } [ ] obj;
