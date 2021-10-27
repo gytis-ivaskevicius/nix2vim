@@ -22,6 +22,7 @@
         };
       };
 
+
     in
     flake-utils.lib.eachDefaultSystem (system:
       let
@@ -29,9 +30,14 @@
           inherit system;
           overlays = [ overlay ];
         };
+        luaConfigBuilder = import ./lib/lua-config-builder.nix { inherit pkgs; lib = pkgs.lib; };
+
+        luaConfig = luaConfigBuilder {
+          config = import ./example.nix { inherit pkgs; };
+        };
       in
       {
-        defaultPackage = (overlay pkgs pkgs).config.pluginsScript;
+        defaultPackage = pkgs.writeText "init.lua" luaConfig.lua;
 
         checks = import ./checks { inherit pkgs dsl; inherit (flake-utils.lib) check-utils; };
       }
