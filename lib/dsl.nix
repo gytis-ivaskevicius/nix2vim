@@ -30,8 +30,6 @@ let
       ""
       (attrNames flattened);
 
-
-
   mapLuaTable = func: args:
     "{" + concatStringsSep ", " (map func args) + "}";
 
@@ -65,9 +63,9 @@ let
     inherit subtype content;
     type = nix2vim;
   };
-in
-{
+in rec {
   inherit nix2lua flatAttrs2Lua;
+  attrs2Lua = attrs: flatAttrs2Lua (flatten attrs);
   flatten = obj: recurse { } [ ] obj;
   toTable = content: mkCustomType "table" content;
   toFuncCall = content: mkCustomType "funcCall" content;
