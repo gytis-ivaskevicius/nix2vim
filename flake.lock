@@ -3,7 +3,7 @@
     "flake-utils": {
       "locked": {
         "lastModified": 1623756310,
-        "narHash": "sha256-g7oPxtFP3pzX+fb1mAXDZ7ZvS9YuaqlRXcjyorT9O3s=",
+        "narHash": "sha256-SaMGfLYF7jVSPhX5soJSYsCZxr9OFIPp7ooeXkhdaTE=",
         "type": "git",
         "url": "file:///home/gytis/Projects/flake-utils"
       },

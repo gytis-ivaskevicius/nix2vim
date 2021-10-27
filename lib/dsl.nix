@@ -1,8 +1,36 @@
 { lib }:
 
 let
-  inherit (builtins) isFunction isAttrs typeOf concatStringsSep substring elemAt length toJSON foldl' isList attrNames;
+  inherit (builtins) mapAttrs isFunction isAttrs typeOf concatStringsSep substring elemAt length toJSON foldl' isList attrNames;
   nix2vim = "nix2vim";
+  trace = it: builtins.trace it it;
+
+  typeConverters = {
+    "" = name: it: "${name} = ${nix2lua it}";
+    table = name: it: "${name} = ${nix2lua it}";
+    funcCall = name: it:
+      let
+        value =
+          if isAttrs it then
+            nix2lua it
+          else if isList it then
+            concatStringsSep ", " (map nix2lua it)
+          else
+            toJSON it;
+      in
+      "${name}(${value})";
+  };
+
+  flatAttrs2Lua = flattened:
+    foldl'
+      (sum: name:
+        let it = flattened.${name}; in
+        sum + "\n" + typeConverters.${it.subtype or ""} name (it.content or it)
+      )
+      ""
+      (attrNames flattened);
+
+
 
   mapLuaTable = func: args:
     "{" + concatStringsSep ", " (map func args) + "}";
@@ -28,7 +56,7 @@ let
       (recurse sum path val);
 
   recurse = sum: path: val:
-    builtins.foldl'
+    foldl'
       (sum: key: op sum (path ++ [ key ]) val.${key})
       sum
       (builtins.attrNames val);
@@ -39,7 +67,7 @@ let
   };
 in
 {
-  inherit nix2lua;
+  inherit nix2lua flatAttrs2Lua;
   flatten = obj: recurse { } [ ] obj;
   toTable = content: mkCustomType "table" content;
   toFuncCall = content: mkCustomType "funcCall" content;

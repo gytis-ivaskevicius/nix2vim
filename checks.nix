@@ -2,7 +2,7 @@
 with check-utils pkgs;
 
 let
-  inherit (dsl) flatten nix2lua toTable toFuncCall;
+  inherit (dsl) flatten flatAttrs2Lua nix2lua toTable toFuncCall;
   trace = it: builtins.trace it it;
 
   flatten1 = {
@@ -12,6 +12,7 @@ let
     d = [ 1 2 3 ];
     e = toTable { a = 1; b = { b = 2; }; };
     f = toFuncCall { a = 1; };
+    g = toFuncCall [{ a = 1; } 1 "abc" true];
   };
   flatten2.a.a = { inherit (flatten1) a b c d e f; };
 
@@ -25,6 +26,10 @@ let
       b = { a = 1; };
     };
   };
+
+  table.a = toTable { a = 1; b = 2; };
+  attrsetFunc.a = toFuncCall { a = 1; b = 2; };
+  multiargFunc.a = toFuncCall [ 1 2 "abc" ];
 in
 {
   flatten11 = isEqual (flatten flatten1) flatten1;
