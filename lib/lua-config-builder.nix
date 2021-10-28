@@ -12,12 +12,13 @@ let
   };
   dsl = import ./dsl.nix { inherit lib; };
 
-  require = attrValues (mapAttrs (name: value: "require('${name}').${dsl.attrs2Lua value}") config.use);
+  require = attrValues (mapAttrs (name: value: "require('${name}').${dsl.attrs2Lua value}") result.config.use);
 in
 {
   inherit result;
   lua = ''
     ${dsl.attrs2Lua { inherit (result.config) vim; }}
     ${concatStringsSep "" require}
+    ${result.config.lua}
   '';
 }

@@ -1,5 +1,13 @@
 { pkgs, dsl }: with dsl; {
 
+  nnoremap.C-s = ":w<CR>";
+  inoremap.abc = ":w<CR>";
+  vnoremap.xyz = ":w<CR>";
+
+  nmap.C-s = ":w<CR>";
+  imap.abc = ":w<CR>";
+  vmap.xyz = ":w<CR>";
+
   set.number = true;
 
   use.lsp_signature.setup = callWith {
