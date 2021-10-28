@@ -2,7 +2,7 @@
   description = "nix2vim";
 
   inputs = {
-    flake-utils.url = "/home/gytis/Projects/flake-utils";
+    flake-utils.url = github:numtide/flake-utils;
     nixpkgs.url = github:NixOS/nixpkgs;
   };
 
@@ -40,7 +40,7 @@
       {
         defaultPackage = pkgs.writeText "init.lua" luaConfig.lua;
 
-        checks = import ./checks { inherit pkgs dsl; inherit (flake-utils.lib) check-utils; };
+        checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
       }
     );
 
