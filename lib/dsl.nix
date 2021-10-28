@@ -7,6 +7,7 @@ let
 
   typeConverters = {
     "" = name: it: "${name} = ${nix2lua it}";
+    rawLua = name: it: "${name} = ${it}";
     table = name: it: "${name} = ${nix2lua it}";
     callWith = name: it:
       let
@@ -70,4 +71,5 @@ rec {
   flatten = obj: recurse { } [ ] obj;
   toTable = content: mkCustomType "table" content;
   callWith = content: mkCustomType "callWith" content;
+  rawLua = content: mkCustomType "rawLua" content;
 }
