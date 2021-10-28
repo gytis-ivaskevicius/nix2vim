@@ -12,5 +12,5 @@ let
   dsl = import ./dsl.nix { inherit lib; };
 in {
   inherit result;
-  lua = dsl.attrs2Lua result.config;
+  lua = dsl.attrs2Lua { inherit (result.config) vim; };
 }

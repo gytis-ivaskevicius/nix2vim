@@ -1,5 +1,7 @@
 { pkgs }: {
 
+  set.number = true;
+
   vim.g = {
     mapleader = " ";
     nofoldenable = true;
@@ -18,7 +20,6 @@
     copyindent = true;
     splitbelow = true;
     splitright = true;
-    number = true;
     relativenumber = true;
     title = true;
     undofile = true;
