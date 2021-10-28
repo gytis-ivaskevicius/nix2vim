@@ -8,7 +8,7 @@ let
   typeConverters = {
     "" = name: it: "${name} = ${nix2lua it}";
     table = name: it: "${name} = ${nix2lua it}";
-    funcCall = name: it:
+    callWith = name: it:
       let
         value =
           if isAttrs it then
@@ -69,6 +69,5 @@ rec {
   attrs2Lua = attrs: flatAttrs2Lua (flatten attrs);
   flatten = obj: recurse { } [ ] obj;
   toTable = content: mkCustomType "table" content;
-  toFuncCall = content: mkCustomType "funcCall" content;
-  callWith = content: mkCustomType "funcCall" content;
+  callWith = content: mkCustomType "callWith" content;
 }

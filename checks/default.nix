@@ -2,7 +2,7 @@
 with check-utils pkgs;
 
 let
-  inherit (dsl) flatten flatAttrs2Lua nix2lua toTable toFuncCall attrs2Lua;
+  inherit (dsl) flatten flatAttrs2Lua nix2lua toTable callWith attrs2Lua;
   trace = it: builtins.trace it it;
 
   flatten1 = {
@@ -11,8 +11,8 @@ let
     c = true;
     d = [ 1 2 3 ];
     e = toTable { a = 1; b = { b = 2; }; };
-    f = toFuncCall { a = 1; };
-    g = toFuncCall [{ a = 1; } 1 "abc" true];
+    f = callWith { a = 1; };
+    g = callWith [{ a = 1; } 1 "abc" true];
   };
   flatten2.a.a = { inherit (flatten1) a b c d e f; };
 
