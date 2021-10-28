@@ -31,9 +31,10 @@
           overlays = [ overlay ];
         };
         luaConfigBuilder = import ./lib/lua-config-builder.nix { inherit pkgs; lib = pkgs.lib; };
+        dsl = import ./lib/dsl.nix { inherit (pkgs) lib; };
 
         luaConfig = luaConfigBuilder {
-          config = import ./example.nix { inherit pkgs; };
+          config = import ./example.nix { inherit pkgs dsl; };
         };
       in
       {

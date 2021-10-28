@@ -22,6 +22,11 @@ with lib; {
       type = with types; attrsOf (oneOf [ bool float int str ]);
     };
 
+    use = mkOption {
+      description = ''Allows requiring modules. Gets parset to "require('<name>').<attrs>"'';
+      type = with types; attrsOf attrs;
+      default = { };
+    };
   };
 
   config = {

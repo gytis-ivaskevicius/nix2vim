@@ -1,6 +1,29 @@
-{ pkgs }: {
+{ pkgs, dsl }: with dsl; {
 
   set.number = true;
+
+  use.lsp_signature.setup = callWith {
+    bind = true;
+    hint_enable = false;
+    hi_parameter = "Visual";
+    handler_opts.border = "single";
+  };
+
+  use."nvim-treesitter.configs".setup = callWith {
+    ensure_installed = [ "bash" "c" "css" "javascript" "json" "lua" "nix" "python" "rust" "toml" ];
+    highlight = {
+      enable = true;
+      disable = [ "css" ];
+    };
+    rainbow = {
+      enable = true;
+      disable = [ "html" ];
+      extended_mode = true;
+      max_file_lines = 10000;
+      colors = [ "#bd93f9" "#6272a4" "#8be9fd" "#50fa7b" "#f1fa8c" "#ffb86c" "#ff5555" ];
+    };
+  };
+
 
   vim.g = {
     mapleader = " ";

@@ -1,8 +1,9 @@
 { pkgs, lib }:
 
+with lib;
 { config }:
 let
-  result = lib.evalModules {
+  result = evalModules {
     modules = [
       (import ./api.options.nix)
       config
@@ -10,7 +11,13 @@ let
     specialArgs = { inherit pkgs; };
   };
   dsl = import ./dsl.nix { inherit lib; };
-in {
+
+  require = attrValues (mapAttrs (name: value: "require('${name}').${dsl.attrs2Lua value}") config.use);
+in
+{
   inherit result;
-  lua = dsl.attrs2Lua { inherit (result.config) vim; };
+  lua = ''
+    ${dsl.attrs2Lua { inherit (result.config) vim; }}
+    ${concatStringsSep "" require}
+  '';
 }

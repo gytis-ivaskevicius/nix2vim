@@ -70,4 +70,5 @@ rec {
   flatten = obj: recurse { } [ ] obj;
   toTable = content: mkCustomType "table" content;
   toFuncCall = content: mkCustomType "funcCall" content;
+  callWith = content: mkCustomType "funcCall" content;
 }
