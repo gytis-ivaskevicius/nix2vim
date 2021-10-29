@@ -70,8 +70,8 @@ in
 
       filterNonNull = mappings: filterAttrs (name: value: value != null) mappings;
 
-      mapping = mode: lhs: rhs: { ... }@args: "map('${mode}', ${lhs}, ${rhs}, ${dsl.nix2lua args})\n";
-      remap = mode: lhs: rhs: "map('${mode}', ${lhs}, ${rhs})\n";
+      mapping = mode: lhs: rhs: { ... }@args: "map('${mode}', '${lhs}', '${rhs}', ${dsl.nix2lua args})\n";
+      remap = mode: lhs: rhs: "map('${mode}', '${lhs}', '${rhs}')\n";
       noremap = mode: lhs: rhs: mapping mode lhs rhs { noremap = true; };
 
       attrsToStr = f: it: concatStringsSep "" (filter (it: it != [ ]) (attrValues (mapAttrs f it)));
