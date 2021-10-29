@@ -26,16 +26,17 @@ let
   ];
 
   # Minimized version of 'sanitizeDerivationName' function
-  str = it: if it == null then
-  "null"
-  # TODO: Better solution is needed
-  else if isAttrs it then
-  (replaceStrings ["-"] [""](sanitizeDerivationName (toJSON it)))
-  else sanitizeDerivationName it;
+  str = it:
+    if it == null then
+      "null"
+    # TODO: Better solution is needed
+    else if isAttrs it then
+      (replaceStrings [ "-" ] [ "" ] (sanitizeDerivationName (toJSON it)))
+    else sanitizeDerivationName it;
 
   test = name: command: derivation {
     inherit system;
-    name = substring 0 (211-33) name;
+    name = substring 0 (211 - 33) name;
     builder = "/bin/sh";
     args = [ "-c" command ];
   };

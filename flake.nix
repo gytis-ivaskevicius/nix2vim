@@ -12,6 +12,10 @@
 
       overlay = prev: final: with prev; {
         utils = callPackage ./lib/utils.nix { inherit nixpkgs; };
+        luaConfigBuilder = import ./lib/lua-config-builder.nix {
+          pkgs = prev;
+          lib = prev.lib;
+        };
         config = utils.makeNeovimConfig {
           python3 = python3;
           nodejs = nodejs;
@@ -30,14 +34,16 @@
           inherit system;
           overlays = [ overlay ];
         };
-        luaConfigBuilder = import ./lib/lua-config-builder.nix { inherit pkgs; lib = pkgs.lib; };
-        dsl = import ./lib/dsl.nix { inherit (pkgs) lib; };
 
-        luaConfig = luaConfigBuilder {
+        dsl = import ./lib/dsl.nix { inherit (pkgs) lib; };
+        luaConfig = pkgs.luaConfigBuilder {
           config = import ./example.nix { inherit pkgs dsl; };
         };
       in
       {
+        inherit overlay;
+        lib.dsl = dsl;
+
         defaultPackage = pkgs.writeText "init.lua" luaConfig.lua;
 
         checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
