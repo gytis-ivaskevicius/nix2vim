@@ -12,7 +12,7 @@ let
   };
   dsl = import ./dsl.nix { inherit lib; };
 
-  require = attrValues (mapAttrs (name: value: "require('${name}').${dsl.attrs2Lua value}") result.config.use);
+  require = flatten (mapAttrsToList (name: value: mapAttrsToList (name_inner: value_inner: "require('${name}').${dsl.attrs2Lua {name_inner = value_inner; }}") value) result.config.use);
 in
 {
   inherit result;
