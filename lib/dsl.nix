@@ -7,7 +7,7 @@ let
 
   typeConverters = {
     "" = name: it: "${name} = ${nix2lua it}";
-    rawLua = name: it: "${name} = ${it}";
+    rawLua = name: it: "${name} = ${it.content}";
     table = name: it: "${name} = ${nix2lua it}";
     callWith = name: it:
       let
