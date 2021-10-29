@@ -32,6 +32,24 @@
     };
   };
 
+  use.cmp.setup = callWith {
+    mapping = [
+      { "['<C-n>']" = rawLua "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })"; }
+      { "['<C-p>']" = rawLua "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })"; }
+      { "['<Down>']" = rawLua "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })"; }
+      { "['<Up>']" = rawLua "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })"; }
+      { "['<C-d>']" = rawLua "cmp.mapping.scroll_docs(-4)"; }
+      { "['<C-f>']" = rawLua "cmp.mapping.scroll_docs(4)"; }
+      { "['<C-Space>']" = rawLua "cmp.mapping.complete()"; }
+      { "['<C-e>']" = rawLua "cmp.mapping.close()"; }
+      { "['<CR>']" = rawLua "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true, })"; }
+    ];
+    sources = [
+      { name = "nvim_lsp"; }
+      { name = "buffer"; }
+    ];
+  };
+
 
   vim.g = {
     mapleader = " ";

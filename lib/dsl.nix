@@ -38,7 +38,7 @@ let
     (if isList args then
       mapLuaTable nix2lua args
     else if isAttrs args && !(args ? type && args.type == "derivation") then
-      mapLuaTable (it: "${it} = ${nix2lua args.${it}}") (attrNames args)
+      mapLuaTable (it: "${it} = ${nix2lua (args.${it}.content or args.${it})}") (attrNames args)
     else
       toJSON args));
 
