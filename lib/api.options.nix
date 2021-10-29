@@ -27,6 +27,7 @@ in
         set.termguicolors = true;
         set.clipboard = "unnamed,unnamedplus";
       };
+      default = { };
       description = "'vim.opt' alias. Acts same as vimscript 'set' command";
       type = with types; attrsOf (oneOf [ bool float int str ]);
     };
