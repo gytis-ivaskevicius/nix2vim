@@ -28,6 +28,8 @@
 
 
     in
+
+    { inherit overlay; } //
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -41,7 +43,6 @@
         };
       in
       {
-        inherit overlay;
         lib.dsl = dsl;
 
         defaultPackage = pkgs.writeText "init.lua" luaConfig.lua;
