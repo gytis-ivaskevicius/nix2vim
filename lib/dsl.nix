@@ -38,7 +38,7 @@ let
     (if isList args then
       mapLuaTable nix2lua args
     else if isAttrs args && !(args ? type && args.type == "derivation") then
-      # HACK how content is handled should be matched based on subtype
+    # HACK how content is handled should be matched based on subtype
       mapLuaTable (it: "${it} = ${args.${it}.content or (nix2lua args.${it})}") (attrNames args)
     else
       toJSON args));

@@ -16,7 +16,7 @@
           pkgs = prev;
           lib = prev.lib;
         };
-        config = utils.makeNeovimConfig {
+        neovimConfig = utils.makeNeovimConfig {
           python3 = python3;
           nodejs = nodejs;
           extraPython3Packages = pkgs: [ pkgs.requests ];
@@ -43,10 +43,55 @@
         luaConfig = pkgs.luaConfigBuilder {
           config = import ./example.nix { inherit pkgs dsl; };
         };
+
       in
       {
+        packages = rec {
+          default = pkgs.wrapNeovim pkgs.neovim-unwrapped {
+            viAlias = false;
+            vimAlias = false;
+            withNodeJs = false;
+            withPython = false;
+            withPython3 = false;
+            withRuby = false;
 
-        defaultPackage = pkgs.writeText "init.lua" luaConfig.lua;
+            configure = {
+              customRC = ''
+                colorscheme dracula
+                luafile ${vimConfig}
+              '';
+            };
+            configure.packages.myVimPackage.start = with pkgs.vimPlugins; [
+              # Adding reference to our custom plugin
+              dracula-vim
+
+              # Overwriting plugin sources with different version
+              cmp-buffer
+              telescope-nvim
+              nvim-cmp
+              cmp-nvim-lsp
+
+              # Plugins from nixpkgs
+              lsp_signature-nvim
+              lspkind-nvim
+              nerdcommenter
+              nvim-lspconfig
+              plenary-nvim
+              popup-nvim
+
+              # Compile syntaxes into treesitter
+              (pkgs.vimPlugins.nvim-treesitter.withPlugins
+                (plugins: with plugins; [ tree-sitter-nix tree-sitter-rust ]))
+            ];
+          };
+
+          vimConfig = pkgs.writeText "init.lua" luaConfig.lua;
+        };
+
+
+
+
+
 
         checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
       }
