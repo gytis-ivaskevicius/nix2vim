@@ -48,6 +48,7 @@
           default = pkgs.neovimBuilder {
             imports = [
               ./example.nix
+              ./modules/nvim-tree.nix
             ];
 
             vimscript = ''
