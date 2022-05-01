@@ -14,9 +14,12 @@ in
     enableVimAlias = mkEnableOption "'vim' alias";
 
     extraMakeWrapperArgs = mkOption {
-      description = "Extra wrapper arguments";
       type = types.str;
       default = "";
+      description = "List should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh";
+      example = literalExpression ''
+        [ "--set ABC 123" ]
+      '';
     };
 
     drvSuffix = mkOption {
