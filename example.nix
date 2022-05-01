@@ -1,4 +1,4 @@
-{ pkgs, dsl }: with dsl; {
+{ pkgs, dsl, ... }: with dsl; {
 
   nnoremap.C-s = ":w<CR>";
   inoremap.abc = ":w<CR>";

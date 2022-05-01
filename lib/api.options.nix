@@ -44,6 +44,12 @@ in
       description = "Lua config";
     };
 
+    vimscript = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Vimscript config";
+    };
+
     nnoremap = mkMappingOption "Defines 'Normal mode' mappings";
     inoremap = mkMappingOption "Defines 'Insert and Replace mode' mappings";
     vnoremap = mkMappingOption "Defines 'Visual and Select mode' mappings";
@@ -104,11 +110,14 @@ in
         t = config.tmap;
       };
 
+      require = flatten (mapAttrsToList (name: value: mapAttrsToList (name_inner: value_inner: "require('${name}').${dsl.attrs2Lua {${name_inner} = value_inner; }}") value) config.use);
     in
     {
       vim.opt = config.set;
 
       lua = ''
+        ${dsl.attrs2Lua { inherit (config) vim; }}
+        ${concatStringsSep "" require}
         local map = vim.api.nvim_set_keymap
         ${noremaps}
         ${remaps}

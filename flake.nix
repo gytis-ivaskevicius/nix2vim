@@ -16,6 +16,10 @@
           pkgs = prev;
           lib = prev.lib;
         };
+        neovimBuilder = import ./lib/neovim-builder.nix {
+          pkgs = prev;
+          lib = prev.lib;
+        };
         neovimConfig = utils.makeNeovimConfig {
           python3 = python3;
           nodejs = nodejs;
@@ -38,30 +42,20 @@
           inherit system;
           overlays = [ overlay ];
         };
-
-        dsl = import ./lib/dsl.nix { inherit (pkgs) lib; };
-        luaConfig = pkgs.luaConfigBuilder {
-          config = import ./example.nix { inherit pkgs dsl; };
-        };
-
       in
       {
-        packages = rec {
-          default = pkgs.wrapNeovim pkgs.neovim-unwrapped {
-            viAlias = false;
-            vimAlias = false;
-            withNodeJs = false;
-            withPython = false;
-            withPython3 = false;
-            withRuby = false;
+        packages = {
+          default = pkgs.neovimBuilder {
+            imports = [
+              ./example.nix
+            ];
 
-            configure = {
-              customRC = ''
-                colorscheme dracula
-                luafile ${vimConfig}
-              '';
-            };
-            configure.packages.myVimPackage.start = with pkgs.vimPlugins; [
+            vimscript = ''
+              colorscheme dracula
+            '';
+
+
+            plugins = with pkgs.vimPlugins; [
               # Adding reference to our custom plugin
               dracula-vim
 
@@ -83,15 +77,9 @@
               (pkgs.vimPlugins.nvim-treesitter.withPlugins
                 (plugins: with plugins; [ tree-sitter-nix tree-sitter-rust ]))
             ];
+
           };
-
-          vimConfig = pkgs.writeText "init.lua" luaConfig.lua;
         };
-
-
-
-
-
 
         checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
       }
