@@ -38,6 +38,12 @@ in
       default = { };
     };
 
+    setup = mkOption {
+      description = ''Results in 'require(<name>).setup(<attrs>)'.'';
+      type = with types; attrsOf attrs;
+      default = { };
+    };
+
     lua = mkOption {
       type = types.lines;
       default = "";
@@ -114,6 +120,7 @@ in
     in
     {
       vim.opt = config.set;
+      use = mapAttrs (_: it: { setup = dsl.callWith it; }) config.setup;
 
       lua = ''
         ${dsl.attrs2Lua { inherit (config) vim; }}

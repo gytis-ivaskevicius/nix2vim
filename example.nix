@@ -10,14 +10,14 @@
 
   set.number = true;
 
-  use.lsp_signature.setup = callWith {
+  setup.lsp_signature = {
     bind = true;
     hint_enable = false;
     hi_parameter = "Visual";
     handler_opts.border = "single";
   };
 
-  use."nvim-treesitter.configs".setup = callWith {
+  setup."nvim-treesitter.configs" = {
     ensure_installed = [ "bash" "c" "css" "javascript" "json" "lua" "nix" "python" "rust" "toml" ];
     highlight = {
       enable = true;
@@ -32,7 +32,7 @@
     };
   };
 
-  use.cmp.setup = callWith {
+  setup.cmp = {
     mapping = {
       "['<C-n>']" = rawLua "require('cmp').mapping.select_next_item({ behavior = require('cmp').SelectBehavior.Insert })";
       "['<C-p>']" = rawLua "require('cmp').mapping.select_prev_item({ behavior = require('cmp').SelectBehavior.Insert })";
