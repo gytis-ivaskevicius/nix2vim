@@ -16,10 +16,8 @@ in
     extraMakeWrapperArgs = mkOption {
       type = types.str;
       default = "";
-      description = "List should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh";
-      example = literalExpression ''
-        [ "--set ABC 123" ]
-      '';
+      description = "Should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh";
+      example = "--set ABC 123";
     };
 
     drvSuffix = mkOption {
