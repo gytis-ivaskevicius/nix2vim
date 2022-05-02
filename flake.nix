@@ -50,6 +50,7 @@
               ./example.nix
               ./modules/nvim-tree.nix
               ./modules/git.nix
+              ./modules/statusline.nix
             ];
 
             vimscript = ''
@@ -60,6 +61,8 @@
             plugins = with pkgs.vimPlugins; [
               # Adding reference to our custom plugin
               dracula-vim
+              tabline-nvim
+              lualine-nvim
 
               # Overwriting plugin sources with different version
               cmp-buffer
