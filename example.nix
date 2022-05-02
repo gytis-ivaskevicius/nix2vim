@@ -50,15 +50,15 @@
     ];
   };
 
-  #use.lspconfig.rnix.setup = callWith {
-  #  cmd = [ "rnix-lsp" ];
-  #  capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
-  #};
+  use.lspconfig.rnix.setup = callWith {
+    cmd = [ "${pkgs.rnix-lsp}/bin/rnix-lsp" ];
+    capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
+  };
 
-  #use.lspconfig.rust.setup = callWith {
-  #  cmd = [ "rust-analyzer" ];
-  #  capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
-  #};
+  use.lspconfig.rust.setup = callWith {
+    cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
+    capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
+  };
 
 
   vim.g = {
