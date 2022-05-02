@@ -49,6 +49,7 @@
             imports = [
               ./example.nix
               ./modules/nvim-tree.nix
+              ./modules/git.nix
             ];
 
             vimscript = ''

@@ -50,15 +50,15 @@
     ];
   };
 
-  use.lspconfig.rnix.setup = callWith {
-    cmd = [ "rnix-lsp" ];
-    capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
-  };
+  #use.lspconfig.rnix.setup = callWith {
+  #  cmd = [ "rnix-lsp" ];
+  #  capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
+  #};
 
-  use.lspconfig.rust.setup = callWith {
-    cmd = [ "rust-analyzer" ];
-    capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
-  };
+  #use.lspconfig.rust.setup = callWith {
+  #  cmd = [ "rust-analyzer" ];
+  #  capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
+  #};
 
 
   vim.g = {
@@ -79,7 +79,6 @@
     copyindent = true;
     splitbelow = true;
     splitright = true;
-    relativenumber = true;
     title = true;
     undofile = true;
     autoread = true;
