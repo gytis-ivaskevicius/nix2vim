@@ -31,6 +31,9 @@
             ./modules/treesitter.nix
             ./modules/telescope.nix
           ];
+
+	  withViAlias = true;
+	  withVimAlias = true;
         };
       };
 
