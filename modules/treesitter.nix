@@ -1,7 +1,7 @@
 { lib, pkgs, ... }: {
 
   plugins = with pkgs.vimPlugins; [
-    (nvim-treesitter.withPlugins (plugins: with plugins; [ tree-sitter-nix tree-sitter-rust ]))
+    (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.passthru.allGrammars))
     nvim-treesitter-context
     nvim-ts-autotag
     nvim-ts-context-commentstring
