@@ -88,7 +88,6 @@
     binary = true;
     matchpairs = "(:),{:},[:],<:>";
     expandtab = true;
-    pastetoggle = "<leader>v";
     wildmode = "list:longest,list:full";
   };
 }
