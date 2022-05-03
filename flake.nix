@@ -47,9 +47,11 @@
         packages = {
           default = pkgs.neovimBuilder {
             imports = [
-              ./example.nix
-              ./modules/nvim-tree.nix
+              ./modules/essentials.nix
+              ./modules/essentials.nix
               ./modules/git.nix
+              ./modules/lsp.nix
+              ./modules/nvim-tree.nix
               ./modules/statusline.nix
               ./modules/treesitter.nix
             ];
