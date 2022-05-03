@@ -1,5 +1,18 @@
 { pkgs, ... }: {
 
+  plugins = with pkgs.vimPlugins; [
+    lualine-nvim
+    tabline-nvim
+    nvim-web-devicons
+    dracula-vim
+  ];
+
+  vimscript = ''
+    colorscheme dracula
+  '';
+
+  setup.tabline.show_index = false;
+
   setup.lualine = {
     options = {
       component_separators = { left = ""; right = ""; };

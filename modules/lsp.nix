@@ -1,5 +1,13 @@
 { pkgs, dsl, ... }: with dsl; {
 
+  plugins = with pkgs.vimPlugins; [
+    cmp-buffer
+    cmp-nvim-lsp
+    lsp_signature-nvim
+    lspkind-nvim
+    nvim-cmp
+    nvim-lspconfig
+  ];
 
   setup.lsp_signature = {
     bind = true;

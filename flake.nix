@@ -52,38 +52,10 @@
               ./modules/git.nix
               ./modules/lsp.nix
               ./modules/nvim-tree.nix
-              ./modules/statusline.nix
+              ./modules/styling.nix
               ./modules/treesitter.nix
+              ./modules/telescope.nix
             ];
-
-            vimscript = ''
-              colorscheme dracula
-            '';
-
-
-            plugins = with pkgs.vimPlugins; [
-              # Adding reference to our custom plugin
-              dracula-vim
-              tabline-nvim
-              lualine-nvim
-
-              # Overwriting plugin sources with different version
-              cmp-buffer
-              telescope-nvim
-              nvim-cmp
-              cmp-nvim-lsp
-
-              # Plugins from nixpkgs
-              lsp_signature-nvim
-              lspkind-nvim
-              nerdcommenter
-              nvim-lspconfig
-              plenary-nvim
-              popup-nvim
-
-              # Compile syntaxes into treesitter
-            ];
-
           };
         };
 
