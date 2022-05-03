@@ -51,6 +51,7 @@
               ./modules/nvim-tree.nix
               ./modules/git.nix
               ./modules/statusline.nix
+              ./modules/treesitter.nix
             ];
 
             vimscript = ''
@@ -79,8 +80,6 @@
               popup-nvim
 
               # Compile syntaxes into treesitter
-              (pkgs.vimPlugins.nvim-treesitter.withPlugins
-                (plugins: with plugins; [ tree-sitter-nix tree-sitter-rust ]))
             ];
 
           };

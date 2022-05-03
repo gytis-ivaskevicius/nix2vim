@@ -17,21 +17,6 @@
     handler_opts.border = "single";
   };
 
-  setup."nvim-treesitter.configs" = {
-    ensure_installed = [ "bash" "c" "css" "javascript" "json" "lua" "nix" "python" "rust" "toml" ];
-    highlight = {
-      enable = true;
-      disable = [ "css" ];
-    };
-    rainbow = {
-      enable = true;
-      disable = [ "html" ];
-      extended_mode = true;
-      max_file_lines = 10000;
-      colors = [ "#bd93f9" "#6272a4" "#8be9fd" "#50fa7b" "#f1fa8c" "#ffb86c" "#ff5555" ];
-    };
-  };
-
   setup.cmp = {
     mapping = {
       "['<C-n>']" = rawLua "require('cmp').mapping.select_next_item({ behavior = require('cmp').SelectBehavior.Insert })";
@@ -55,7 +40,7 @@
     capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
   };
 
-  use.lspconfig.rust.setup = callWith {
+  use.lspconfig.rust_analyzer.setup = callWith {
     cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
     capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
   };
