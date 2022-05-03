@@ -32,8 +32,8 @@
             ./modules/telescope.nix
           ];
 
-	  withViAlias = true;
-	  withVimAlias = true;
+	  enableViAlias = true;
+	  enableVimAlias = true;
         };
       };
 
