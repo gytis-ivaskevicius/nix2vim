@@ -10,23 +10,27 @@
     let
       dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
 
-      overlay = prev: final: with prev; {
-        utils = callPackage ./lib/utils.nix { inherit nixpkgs; };
-        luaConfigBuilder = import ./lib/lua-config-builder.nix {
-          pkgs = prev;
-          lib = prev.lib;
-        };
+
+      overlay = prev: final: {
+
+        nix2luaUtils = prev.callPackage ./lib/utils.nix { inherit nixpkgs; };
+
         neovimBuilder = import ./lib/neovim-builder.nix {
           pkgs = prev;
           lib = prev.lib;
         };
-        neovimConfig = utils.makeNeovimConfig {
-          python3 = python3;
-          nodejs = nodejs;
-          extraPython3Packages = pkgs: [ pkgs.requests ];
-          extraLuaPackages = pkgs: with pkgs; [ luafilesystem ];
-          plugins = with pkgs.vimPlugins; [ vim-nix nerdtree tagbar vim-clap vim-airline vim-airline-themes ];
-          optionalPlugins = with pkgs.vimPlugins; [ ];
+
+        nix2vimDemo = prev.neovimBuilder {
+          imports = [
+            ./modules/essentials.nix
+            ./modules/essentials.nix
+            ./modules/git.nix
+            ./modules/lsp.nix
+            ./modules/nvim-tree.nix
+            ./modules/styling.nix
+            ./modules/treesitter.nix
+            ./modules/telescope.nix
+          ];
         };
       };
 
@@ -44,20 +48,7 @@
         };
       in
       {
-        packages = {
-          default = pkgs.neovimBuilder {
-            imports = [
-              ./modules/essentials.nix
-              ./modules/essentials.nix
-              ./modules/git.nix
-              ./modules/lsp.nix
-              ./modules/nvim-tree.nix
-              ./modules/styling.nix
-              ./modules/treesitter.nix
-              ./modules/telescope.nix
-            ];
-          };
-        };
+        packages.default = pkgs.nix2vimDemo;
 
         checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
       }
