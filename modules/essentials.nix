@@ -25,11 +25,11 @@
     wildmode = "list:longest,list:full";
     wrap = false;
 
-    #expandtab = true;
-    #shiftwidth = 4;
-    #smartindent = true;
-    #softtabstop = 4;
-    #tabstop = 4;
+    expandtab = true;
+    shiftwidth = 4;
+    smartindent = true;
+    softtabstop = 4;
+    tabstop = 4;
 
     #cursorline = true;
   };

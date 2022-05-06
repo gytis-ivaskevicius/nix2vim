@@ -11,7 +11,7 @@
       dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
 
 
-      overlay = prev: final: {
+      overlay = final: prev: {
 
         nix2luaUtils = prev.callPackage ./lib/utils.nix { inherit nixpkgs; };
 
@@ -20,9 +20,8 @@
           lib = prev.lib;
         };
 
-        nix2vimDemo = prev.neovimBuilder {
+        nix2vimDemo = final.neovimBuilder {
           imports = [
-            ./modules/essentials.nix
             ./modules/essentials.nix
             ./modules/git.nix
             ./modules/lsp.nix
@@ -32,8 +31,8 @@
             ./modules/telescope.nix
           ];
 
-	  enableViAlias = true;
-	  enableVimAlias = true;
+          enableViAlias = true;
+          enableVimAlias = true;
         };
       };
 
@@ -42,6 +41,10 @@
     {
       inherit overlay;
       lib.dsl = dsl;
+      templates.default = {
+        path = ./template;
+        description = "A very basic neovim configuration";
+      };
     } //
     flake-utils.lib.eachDefaultSystem (system:
       let
