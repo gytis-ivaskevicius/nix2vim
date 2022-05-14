@@ -2,14 +2,14 @@
   description = "nix2vim";
 
   inputs = {
-    flake-utils.url = github:numtide/flake-utils;
-    nixpkgs.url = github:NixOS/nixpkgs;
+    nixpkgs.url = github:gytis-ivaskevicius/nixpkgs;
   };
 
-  outputs = { self, flake-utils, nixpkgs }:
+  outputs = { self, nixpkgs }:
     let
+      inherit (nixpkgs.lib) mkApp mkApp' eachSystem systems;
       dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
-
+      commonSystems = systems.supported.tier1 ++ systems.supported.tier2;
 
       overlay = final: prev: {
 
@@ -46,7 +46,7 @@
         description = "A very basic neovim configuration";
       };
     } //
-    flake-utils.lib.eachDefaultSystem (system:
+    eachSystem commonSystems (system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -55,6 +55,12 @@
       in
       {
         packages.default = pkgs.nix2vimDemo;
+
+        # Check if correct path is selected
+        apps.a = nixpkgs.lib.mkApp' pkgs.nix2vimDemo "vi";
+
+        # Check if correct path is automagically selected
+        apps.b = nixpkgs.lib.mkApp pkgs.nix2vimDemo;
 
         checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
       }
