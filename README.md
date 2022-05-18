@@ -1,17 +1,21 @@
 # nix2vim
+Nix to neovim lua configuration parser.
 
-Super WIP Nix -> neovim lua configuration parser.
-Usage example: https://github.com/DieracDelta/vimconf_talk/tree/5_ci
+Getting started:
+```bash
+# Install unstable nix with flakes enabled https://github.com/numtide/nix-unstable-installer
+sh <(curl -L https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.9.0pre20220513_bf89cd9/install)
 
-APIs that need to be implemented: (half of these points are super simple)
+# Create repo with this project preinstalled
+mkdir super-cool-neovim && cd super-cool-neovim
+nix flake init --template github:gytis-ivaskevicius/nix2vim
+```
 
-- [x] set
-- [x] require
-- [ ] lsp (first class LSP support)
-- [x] mappings
-- [ ] autocmd
-- [ ] setup (`setup.<name> = {a = 1;}` should be parsed to `require('<name>').setup {a = 1}`. Basically existing `require` API wrapper)
-- [ ] globals (same as `set` wrapper but for `let g:xyz` stuff)
-- [ ] <leader> option
-- [ ] source lua/vim files
-- [ ] functions definition
+Available options:
+- [Neovim lua api options](./docs/api.options.md)
+- [Neovim wrapper options](./docs/wrapper.options.md)
+
+Usage examples:
+- https://github.com/DieracDelta/vimconfig
+- `./modules` folder
+

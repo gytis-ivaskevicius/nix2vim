@@ -6,8 +6,8 @@ let
   dsl = import ./dsl.nix { inherit lib; };
   result = evalModules {
     modules = [
-      (import ./api.options.nix)
-      (import ./wrapper.options.nix)
+      ./api.options.nix
+      ./wrapper.options.nix
       config
     ];
     specialArgs = { inherit pkgs dsl; };

@@ -10,7 +10,6 @@
     let
       dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
 
-
       overlay = final: prev: {
 
         nix2luaUtils = prev.callPackage ./lib/utils.nix { inherit nixpkgs; };
@@ -55,7 +54,7 @@
       in
       {
         packages.default = pkgs.nix2vimDemo;
-
+        apps = import ./apps.nix { inherit pkgs; utils = flake-utils.lib; };
         checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
       }
     );
