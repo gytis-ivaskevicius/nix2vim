@@ -15,6 +15,6 @@ in
   generateDocs = pkgs.writeShellScriptBin "create-docs.sh" ''
     mkdir docs
     cp -f ${generateMarkdown ./lib/api.options.nix} docs/api.options.md
-    cp -f ${generateMarkdown ./lib/wrapper.options.nix} docs/api.options.md
+    cp -f ${generateMarkdown ./lib/wrapper.options.nix} docs/wrapper.options.md
   '';
 }

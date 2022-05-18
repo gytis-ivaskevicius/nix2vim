@@ -86,87 +86,94 @@ lazy attribute set of raw value
 
 
 
-## cmap
-Defines 'Command-line mode' mappings
+## drv
+This option contains the store path that represents neovim.
 
 *_Type_*:
-attribute set of null or string
+package
+
+
+
+
+
+
+## drvSuffix
+Suffix of generated neovim derivation
+
+*_Type_*:
+string
 
 
 *_Default_*
 ```
-{}
+"-nix2vim"
+```
+
+
+
+
+## enableViAlias
+Whether to enable 'vi' alias.
+
+*_Type_*:
+boolean
+
+
+*_Default_*
+```
+false
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+true
 ```
 
 
-## cnoremap
-Defines 'Command-line mode' mappings
+## enableVimAlias
+Whether to enable 'vim' alias.
 
 *_Type_*:
-attribute set of null or string
+boolean
 
 
 *_Default_*
 ```
-{}
+false
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+true
 ```
 
 
-## imap
-Defines 'Insert and Replace mode' mappings
+## extraLuaPackages
+The function you would have passed to lua.withPackages
 
 *_Type_*:
-attribute set of null or string
+function that evaluates to a(n) list of package
 
 
 *_Default_*
 ```
-{}
+"<function>"
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+{"_type":"literalExpression","text":"it: [ it.cjson ]\n"}
 ```
 
 
-## inoremap
-Defines 'Insert and Replace mode' mappings
+## extraMakeWrapperArgs
+Should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
 
 *_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
-
-
-## lua
-Lua config
-
-*_Type_*:
-strings concatenated with "\n"
+string
 
 
 *_Default_*
@@ -175,13 +182,74 @@ strings concatenated with "\n"
 ```
 
 
+*_Example_*
+```
+"--set ABC 123"
+```
 
 
-## nmap
-Defines 'Normal mode' mappings
+## extraPython3Packages
+The function you would have passed to python.withPackages
 
 *_Type_*:
-attribute set of null or string
+function that evaluates to a(n) list of package
+
+
+*_Default_*
+```
+"<function>"
+```
+
+
+*_Example_*
+```
+{"_type":"literalExpression","text":"it: [ it.requests ]\n"}
+```
+
+
+## optionalPlugins
+Optional plugins
+
+*_Type_*:
+list of package
+
+
+*_Default_*
+```
+[]
+```
+
+
+*_Example_*
+```
+{"_type":"literalExpression","text":"with pkgs.vimPlugins; [ dracula-vim ]\n"}
+```
+
+
+## package
+Neovim package to use.
+
+*_Type_*:
+package
+
+
+*_Default_*
+```
+{"_type":"derivation","name":"neovim-unwrapped-0.7.0"}
+```
+
+
+*_Example_*
+```
+{"_type":"literalExpression","text":"pkgs.neovim-unwrapped"}
+```
+
+
+## packages
+Attributes gets passed to 'configure.packages'
+
+*_Type_*:
+attribute set of submodule
 
 
 *_Default_*
@@ -192,299 +260,121 @@ attribute set of null or string
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+{"_type":"literalExpression","text":"with pkgs.vimPlugins; {\n  start = [ ];\n  opt = [];\n};\n"}
 ```
 
 
-## nnoremap
-Defines 'Normal mode' mappings
+## packages.\<name\>.opt
+Optional plugins
 
 *_Type_*:
-attribute set of null or string
+list of package
 
 
 *_Default_*
 ```
-{}
+[]
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+{"_type":"literalExpression","text":"with pkgs.vimPlugins; [ dracula-vim ]\n"}
 ```
 
 
-## omap
-Defines 'Operator pending mode' mappings
+## packages.\<name\>.start
+Plugins to be autoloaded
 
 *_Type_*:
-attribute set of null or string
+list of package
 
 
 *_Default_*
 ```
-{}
+[]
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+{"_type":"literalExpression","text":"with pkgs.vimPlugins; [ dracula-vim ]\n"}
 ```
 
 
-## onoremap
-Defines 'Operator pending mode' mappings
+## plugins
+Plugins to be autoloaded
 
 *_Type_*:
-attribute set of null or string
+list of package
 
 
 *_Default_*
 ```
-{}
+[]
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+{"_type":"literalExpression","text":"with pkgs.vimPlugins; [ dracula-vim ]\n"}
 ```
 
 
-## set
-'vim.opt' alias. Acts same as vimscript 'set' command
+## withNodeJs
+Whether to enable Node.js.
 
 *_Type_*:
-attribute set of boolean or floating point number or signed integer or string
+boolean
 
 
 *_Default_*
 ```
-{}
+false
 ```
 
 
 *_Example_*
 ```
-{"set":{"clipboard":"unnamed,unnamedplus","termguicolors":true}}
+true
 ```
 
 
-## setup
-Results in 'require(<name>).setup(<attrs>)'.
+## withPython3
+Whether to enable Python 3.
 
 *_Type_*:
-attribute set of attribute set
+boolean
 
 
 *_Default_*
 ```
-{}
-```
-
-
-
-
-## smap
-Defines 'Select mode' mappings
-
-*_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
+false
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+true
 ```
 
 
-## snoremap
-Defines 'Select mode' mappings
+## withRuby
+Whether to enable Ruby.
 
 *_Type_*:
-attribute set of null or string
+boolean
 
 
 *_Default_*
 ```
-{}
+false
 ```
 
 
 *_Example_*
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
-
-
-## tmap
-Defines 'Terminal mode' mappings
-
-*_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
-
-
-## tnoremap
-Defines 'Terminal mode' mappings
-
-*_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
-
-
-## use
-Allows requiring modules. Gets parset to "require('<name>').<attrs>"
-
-*_Type_*:
-attribute set of attribute set
-
-
-*_Default_*
-```
-{}
-```
-
-
-
-
-## vim
-Represents 'vim' namespace from neovim lua api.
-
-*_Type_*:
-attribute set
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"vim":{"opt":{"clipboard":"unnamed,unnamedplus","termguicolors":true}}}
-```
-
-
-## vimscript
-Vimscript config
-
-*_Type_*:
-strings concatenated with "\n"
-
-
-*_Default_*
-```
-""
-```
-
-
-
-
-## vmap
-Defines 'Visual and Select mode' mappings
-
-*_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
-
-
-## vnoremap
-Defines 'Visual and Select mode' mappings
-
-*_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
-
-
-## xmap
-Defines 'Visual mode' mappings
-
-*_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
-
-
-## xnoremap
-Defines 'Visual mode' mappings
-
-*_Type_*:
-attribute set of null or string
-
-
-*_Default_*
-```
-{}
-```
-
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+true
 ```
 
 

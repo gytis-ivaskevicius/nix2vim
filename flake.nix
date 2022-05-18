@@ -1,5 +1,5 @@
 {
-  description = "nix2vim";
+  description = "Next generation neovim configuration framework";
 
   inputs = {
     flake-utils.url = github:numtide/flake-utils;

@@ -19,3 +19,8 @@ Usage examples:
 - https://github.com/DieracDelta/vimconfig
 - `./modules` folder
 
+TODO:
+- Improve docs
+- Add standalone lua config builder (without neovim)
+- Find a better project name (Looking for suggestions!)
+
