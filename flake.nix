@@ -10,13 +10,13 @@
     let
       dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
 
-      overlay = final: prev: {
+      overlay = final: _: {
 
-        nix2luaUtils = prev.callPackage ./lib/utils.nix { inherit nixpkgs; };
+        nix2luaUtils = final.callPackage ./lib/utils.nix { inherit nixpkgs; };
 
         neovimBuilder = import ./lib/neovim-builder.nix {
-          pkgs = prev;
-          lib = prev.lib;
+          pkgs = final;
+          lib = final.lib;
         };
 
         nix2vimDemo = final.neovimBuilder {
