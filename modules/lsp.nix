@@ -44,5 +44,10 @@
     capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
   };
 
+  use.lspconfig.solargraph.setup = callWith {
+    cmd = [ "${pkgs.solargraph}/bin/solargraph" "stdio" ];
+    capabilities = rawLua "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
+  };
+
 
 }
