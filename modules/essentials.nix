@@ -17,7 +17,7 @@
     splitbelow = true;
     splitright = true;
     termguicolors = true;
-    title = true;
+    #title = true; # Visual artifacts
     undofile = true;
     updatetime = 100;
     visualbell = true;

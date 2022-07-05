@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
-with lib;
 let
+  inherit (lib) replaceStrings mkOption types flatten mapAttrsToList mapAttrs filterAttrs concatStringsSep filter attrValues;
   mkMappingOption = description: mkOption {
     inherit description;
     example = { abc = ":FZF<CR>"; C-p = ":FZF<CR>"; }; # Probably should be overwritten per option basis
@@ -30,6 +30,15 @@ in
       default = { };
       description = "'vim.opt' alias. Acts same as vimscript 'set' command";
       type = with types; attrsOf (oneOf [ bool float int str ]);
+    };
+
+    function = mkOption {
+      example = {
+        abc = "print 'hello world'";
+      };
+      default = { };
+      description = "Attribute set representing <function-name> -> <function-body> pairs";
+      type = with types; attrsOf str;
     };
 
     use = mkOption {
@@ -116,13 +125,35 @@ in
         t = config.tmap;
       };
 
-      require = flatten (mapAttrsToList (name: value: mapAttrsToList (name_inner: value_inner: "require('${name}').${dsl.attrs2Lua {${name_inner} = value_inner; }}") value) config.use);
+      requireBuilder = name: name_inner: value_inner:
+        let
+          varName = replaceStrings [ "-" "." ] [ "_" "_" ] name;
+        in
+        ''
+          local ${varName} = require('${name}')
+          ${varName}.${dsl.attrs2Lua {${name_inner} = value_inner; }}
+        '';
+
+      functions = mapAttrsToList (name: value: ''
+        function ${name}()
+          ${value}
+        end
+      '') config.function;
+      require = flatten (mapAttrsToList (name: value: mapAttrsToList (requireBuilder name) value) config.use);
     in
     {
       vim.opt = config.set;
       use = mapAttrs (_: it: { setup = dsl.callWith it; }) config.setup;
 
       lua = ''
+        ${toString functions}
+
+        local _cmp_nvim_lsp_present, _cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+        local capabilities = nil
+        if present then
+            capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+        end
+
         ${dsl.attrs2Lua { inherit (config) vim; }}
         ${concatStringsSep "" require}
         local map = vim.api.nvim_set_keymap

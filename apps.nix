@@ -10,11 +10,12 @@ let
       }).options;
     in
     (pkgs.nixosOptionsDoc { inherit options; }).optionsCommonMark;
+  mkApp = drv: utils.mkApp { inherit drv; };
 in
 {
-  generateDocs = pkgs.writeShellScriptBin "create-docs.sh" ''
+  generateDocs = mkApp (pkgs.writeShellScriptBin "create-docs.sh" ''
     mkdir docs
     cp -f ${generateMarkdown ./lib/api.options.nix} docs/api.options.md
     cp -f ${generateMarkdown ./lib/wrapper.options.nix} docs/wrapper.options.md
-  '';
+  '');
 }
