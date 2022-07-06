@@ -1,10 +1,11 @@
 { pkgs, ... }: {
 
-  plugins = with pkgs.vimPlugins; [
-    guess-indent
-  ];
+  #plugins = with pkgs.vimPlugins; [
+  #  guess-indent
+  #];
 
-  setup.guess-indent = { };
+  # Not available in nixpkgs :/
+  #setup.guess-indent = { };
 
   set = {
     hidden = true;

@@ -6,30 +6,31 @@
     crates-nvim
   ];
 
-  #setup.rust-tools = {
-  #  tools = {
-  #    autoSetHints = true;
-  #    runnables.use_telescope = true;
-  #    inlay_hints = {
-  #      only_current_line = false;
-  #      only_current_line_autocmd = "CursorMoved";
+  setup.rust-tools = {
+    tools = {
+      autoSetHints = true;
+      runnables.use_telescope = true;
+      inlay_hints = {
+        only_current_line = false;
+        only_current_line_autocmd = "CursorMoved";
 
-  #      show_parameter_hints = true;
+        show_parameter_hints = true;
 
-  #      parameter_hints_prefix = "<- ";
-  #      other_hints_prefix = "=> ";
+        parameter_hints_prefix = "<- ";
+        other_hints_prefix = "=> ";
 
-  #      max_len_align = false;
+        max_len_align = false;
 
-  #      max_len_align_padding = 1;
+        max_len_align_padding = 1;
 
-  #      right_align = false;
+        right_align = false;
 
-  #      right_align_padding = 7;
-  #      highlight = "DiagnosticSignWarn";
-  #    };
-  #  };
-  #};
+        right_align_padding = 7;
+        highlight = "DiagnosticSignWarn";
+      };
+    };
+    server.cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
+  };
 
   setup.crates = {
     text = {

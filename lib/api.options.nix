@@ -134,11 +134,13 @@ in
           ${varName}.${dsl.attrs2Lua {${name_inner} = value_inner; }}
         '';
 
-      functions = mapAttrsToList (name: value: ''
-        function ${name}()
-          ${value}
-        end
-      '') config.function;
+      functions = mapAttrsToList
+        (name: value: ''
+          function ${name}()
+            ${value}
+          end
+        '')
+        config.function;
       require = flatten (mapAttrsToList (name: value: mapAttrsToList (requireBuilder name) value) config.use);
     in
     {
