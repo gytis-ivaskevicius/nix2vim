@@ -1,4 +1,10 @@
-{ ... }: {
+{ pkgs, ... }: {
+
+  plugins = with pkgs.vimPlugins; [
+    guess-indent
+  ];
+
+  setup.guess-indent = { };
 
   set = {
     hidden = true;

@@ -155,7 +155,7 @@ in
         end
 
         ${dsl.attrs2Lua { inherit (config) vim; }}
-        ${concatStringsSep "" require}
+        ${toString require}
         local map = vim.api.nvim_set_keymap
         ${noremaps}
         ${remaps}
