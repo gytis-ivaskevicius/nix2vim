@@ -1,10 +1,11 @@
 { pkgs, ... }: {
 
   plugins = with pkgs.vimPlugins; [
-    lualine-nvim
-    tabline-nvim
-    nvim-web-devicons
+    colorizer
     dracula-vim
+    lualine-nvim
+    nvim-web-devicons
+    tabline-nvim
   ];
 
   vimscript = ''

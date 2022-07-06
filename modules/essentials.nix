@@ -1,11 +1,13 @@
-{ pkgs, ... }: {
+{ pkgs, dsl, ... }: with dsl;{
 
-  #plugins = with pkgs.vimPlugins; [
-  #  guess-indent
-  #];
+  plugins = with pkgs.vimPlugins; [
+    surround-nvim
 
-  # Not available in nixpkgs :/
-  #setup.guess-indent = { };
+    # Not available in nixpkgs :/
+    #guess-indent
+  ];
+
+  setup.surround.prefix = "S";
 
   set = {
     hidden = true;
