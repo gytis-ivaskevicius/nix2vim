@@ -28,6 +28,7 @@
             ./modules/styling.nix
             ./modules/treesitter.nix
             ./modules/telescope.nix
+            ./modules/which-key.nix
           ];
 
           enableViAlias = true;
