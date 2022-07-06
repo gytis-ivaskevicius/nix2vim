@@ -10,6 +10,11 @@
 
   vimscript = ''
     colorscheme dracula
+    highlight TelescopeNormal guibg=#1b1f27
+    highlight TelescopeBorder guibg=#1b1f27 guifg=#1b1f27
+    highlight TelescopePromptBorder guibg=#242930 guifg=#242930
+    highlight TelescopePromptNormal guibg=#242930
+    highlight TelescopePromptTitle guibg=#242930 guifg=#FFFFFF
   '';
 
   setup.tabline.show_index = false;
