@@ -84,6 +84,8 @@
 
 
   vimscript = ''
+    autocmd FileType nix setlocal shiftwidth=2 tabstop=2
+
     " Function to clean trailing Spaces on save
     function! CleanExtraSpaces() "Function to clean unwanted spaces
         let save_cursor = getpos(".")
