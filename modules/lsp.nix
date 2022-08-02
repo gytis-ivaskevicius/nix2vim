@@ -58,6 +58,7 @@ in
       { name = "buffer"; }
       { name = "vsnip"; }
       { name = "crates"; }
+      { name = "path"; }
     ];
     snippet.expand = rawLua ''function(args) vim.fn["vsnip#anonymous"](args.body) end '';
   };

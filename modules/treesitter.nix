@@ -12,7 +12,7 @@
   setup.treesitter-context.setup = { };
 
   setup."nvim-treesitter.configs" = {
-    ensure_installed = "all";
+    #ensure_installed = "all";
     #ignore_install = [ ];
 
     highlight = {
