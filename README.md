@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://user-images.githubusercontent.com/13730968/184056986-6c74e9d4-dc35-4f39-a0bb-dc4d3ac5125c.png" alt="Skooter">
+  <img src="https://user-images.githubusercontent.com/13730968/184056986-6c74e9d4-dc35-4f39-a0bb-dc4d3ac5125c.png" alt="Skooter" width="300" height="300">
 </h1>
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
