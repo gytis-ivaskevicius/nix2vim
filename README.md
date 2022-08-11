@@ -7,7 +7,7 @@
 ![deploying](https://github.com/DieracDelta/DieracDelta.github.io/workflows/Build/badge.svg)
 
 
-# nix2vim
+# Skooter
 Nix to neovim lua configuration parser.
 
 Getting started:
@@ -17,7 +17,7 @@ sh <(curl -L https://github.com/numtide/nix-unstable-installer/releases/download
 
 # Create repo with this project preinstalled
 mkdir super-cool-neovim && cd super-cool-neovim
-nix flake init --template github:gytis-ivaskevicius/nix2vim
+nix flake init --template github:gytis-ivaskevicius/skooter
 nix run .
 ```
 

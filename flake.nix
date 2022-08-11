@@ -19,7 +19,7 @@
           lib = final.lib;
         };
 
-        nix2vimDemo = final.neovimBuilder {
+        skooterDemo = final.neovimBuilder {
           imports = [
             ./modules/essentials.nix
             ./modules/git.nix
@@ -54,7 +54,7 @@
         };
       in
       {
-        packages.default = pkgs.nix2vimDemo;
+        packages.default = pkgs.skooterDemo;
         apps = import ./apps.nix { inherit pkgs; utils = flake-utils.lib; };
         checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
       }

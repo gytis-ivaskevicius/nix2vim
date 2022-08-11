@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) mapAttrs isFunction isAttrs typeOf concatStringsSep substring elemAt length toJSON foldl' isList attrNames;
-  nix2vim = "nix2vim";
+  skooter = "skooter";
   trace = it: builtins.trace it it;
 
   typeConverters = {
@@ -45,7 +45,7 @@ let
 
   op = sum: path: val:
     let
-      isCustomValue = val ? type && (val.type == nix2vim || val.type == "derivation");
+      isCustomValue = val ? type && (val.type == skooter || val.type == "derivation");
       pathStr = concatStringsSep "." path;
     in
     if !(isAttrs val) || isCustomValue then
@@ -63,7 +63,7 @@ let
 
   mkCustomType = subtype: content: {
     inherit subtype content;
-    type = nix2vim;
+    type = skooter;
   };
 in
 rec {
