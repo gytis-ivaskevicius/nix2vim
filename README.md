@@ -1,3 +1,12 @@
+<h1 align="center">
+  <img src="https://user-images.githubusercontent.com/13730968/184056986-6c74e9d4-dc35-4f39-a0bb-dc4d3ac5125c.png" alt="Skooter">
+</h1>
+
+[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+
+![deploying](https://github.com/DieracDelta/DieracDelta.github.io/workflows/Build/badge.svg)
+
+
 # nix2vim
 Nix to neovim lua configuration parser.
 
@@ -9,6 +18,7 @@ sh <(curl -L https://github.com/numtide/nix-unstable-installer/releases/download
 # Create repo with this project preinstalled
 mkdir super-cool-neovim && cd super-cool-neovim
 nix flake init --template github:gytis-ivaskevicius/nix2vim
+nix run .
 ```
 
 Available options:
