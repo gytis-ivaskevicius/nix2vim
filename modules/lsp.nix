@@ -26,7 +26,11 @@ in
     friendly-snippets
     # for showing lsp progress
     fidget-nvim
+    # for showing errors and warnings
+    trouble-nvim
   ];
+
+
 
   setup.fidget = { };
 
@@ -110,6 +114,8 @@ in
     cmd = [ "${pkgs.terraform-ls}/bin/terraform-lsp" ];
     inherit capabilities;
   };
+
+  use.trouble.setup = callWith {};
 
 
 }
