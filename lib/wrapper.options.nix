@@ -112,8 +112,7 @@ in
     packages.nix2vim = { start = config.plugins; opt = config.optionalPlugins; };
 
     drv = pkgs.wrapNeovim cfg.package {
-      inherit (cfg) withNodeJs withPython3 withRuby extraMakeWrapperArgs;
-      withPython = false;
+      inherit (cfg) withNodeJs withPython3 withRuby extraMakeWrapperArgs extraPython3Packages extraLuaPackages;
       viAlias = cfg.enableViAlias;
       vimAlias = cfg.enableVimAlias;
 
