@@ -2,7 +2,7 @@
 with check-utils pkgs;
 
 let
-  inherit (dsl) flatten flatAttrs2Lua nix2lua toTable callWith attrs2Lua;
+  inherit (dsl) flatten flatAttrs2Lua nix2lua toTable rawLua callWith attrs2Lua;
   trace = it: builtins.trace it it;
 
   flatten1 = {
@@ -24,6 +24,19 @@ let
     e = {
       a = { a = 1; b = 2; };
       b = { a = 1; };
+    };
+  };
+
+  tableWithCustomTypes = {
+    a.a = callWith {
+      a = rawLua "some code";
+      b = [
+        (rawLua "1")
+        (rawLua "2")
+      ];
+      c.a = toTable {
+        a = rawLua "someVar";
+      };
     };
   };
 in
@@ -49,4 +62,8 @@ in
       result = (attrs2Lua { a = flatten1; });
     in
     isEqual expected result;
+
+  deepCustomTypes = isEqual
+    (attrs2Lua tableWithCustomTypes)
+    "a.a({a = some code, b = {1, 2}, c = {a = {a = someVar}}})\n";
 }

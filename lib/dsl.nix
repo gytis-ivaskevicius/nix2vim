@@ -1,7 +1,7 @@
 { lib }:
-
+with lib;
 let
-  inherit (builtins) mapAttrs isFunction isAttrs typeOf concatStringsSep substring elemAt length toJSON foldl' isList attrNames;
+  inherit (builtins) typeOf toJSON;
   nix2vim = "nix2vim";
   trace = it: builtins.trace it it;
 
@@ -31,17 +31,23 @@ let
       ""
       (attrNames flattened);
 
-  mapLuaTable = func: args:
-    "{" + concatStringsSep ", " (map func args) + "}";
-
-  nix2lua = (args:
-    (if isList args then
-      mapLuaTable nix2lua args
-    else if isAttrs args && !(args ? type && args.type == "derivation") then
-    # HACK how content is handled should be matched based on subtype
-      mapLuaTable (it: "${it} = ${args.${it}.content or (nix2lua args.${it})}") (attrNames args)
+  nix2lua = args:
+    if (args.type or null) == nix2vim then
+      let
+        subtypes = {
+          "" = throw "No method to crate lua from ${args.subtype}";
+          callWith = throw "Cannot perform callWith within a structure";
+          rawLua = args.content;
+          table = nix2lua args.content;
+        };
+      in
+      subtypes.${args.subtype or ""}
+    else if isList args then
+      "{" + concatMapStringsSep ", " nix2lua args + "}"
+    else if isAttrs args && (args.type or null) != "derivation" then
+      "{" + concatMapStringsSep ", " (it: "${it} = ${nix2lua args.${it}}") (attrNames args) + "}"
     else
-      toJSON args));
+      toJSON args;
 
   op = sum: path: val:
     let
