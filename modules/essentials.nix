@@ -2,11 +2,13 @@
 
   plugins = with pkgs.vimPlugins; [
     surround-nvim
+    nvim-autopairs
 
     # Not available in nixpkgs :/
     #guess-indent
   ];
 
+  setup.nvim-autopairs = {};
   setup.surround.prefix = "S";
 
   set = {
