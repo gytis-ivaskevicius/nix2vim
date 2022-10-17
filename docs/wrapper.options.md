@@ -106,7 +106,7 @@ string
 
 *_Default_*
 ```
-"-nix2vim"
+"-skooter"
 ```
 
 

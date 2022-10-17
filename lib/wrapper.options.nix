@@ -23,7 +23,7 @@ in
     drvSuffix = mkOption {
       description = "Suffix of generated neovim derivation";
       type = types.str;
-      default = "-nix2vim";
+      default = "-skooter";
     };
 
     package = mkOption {
@@ -109,7 +109,7 @@ in
 
 
   config = {
-    packages.nix2vim = { start = config.plugins; opt = config.optionalPlugins; };
+    packages.skooter = { start = config.plugins; opt = config.optionalPlugins; };
 
     drv = pkgs.wrapNeovim cfg.package {
       inherit (cfg) withNodeJs withPython3 withRuby extraMakeWrapperArgs extraPython3Packages extraLuaPackages;
@@ -123,7 +123,7 @@ in
         customRC = ''
           ${cfg.vimscript}
 
-          luafile ${pkgs.writeText "nix2vim.lua" cfg.lua}
+          luafile ${pkgs.writeText "skooter.lua" cfg.lua}
         '';
       };
     };

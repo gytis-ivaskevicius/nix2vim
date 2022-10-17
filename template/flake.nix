@@ -5,17 +5,17 @@
     nixpkgs.url = github:NixOS/nixpkgs;
     flake-utils.url = github:numtide/flake-utils;
 
-    nix2vim.url = github:gytis-ivaskevicius/nix2vim;
-    nix2vim.inputs.nixpkgs.follows = "nixpkgs";
+    skooter.url = github:gytis-ivaskevicius/skooter;
+    skooter.inputs.nixpkgs.follows = "nixpkgs";
   };
 
 
-  outputs = { self, nixpkgs, nix2vim, flake-utils }:
+  outputs = { self, nixpkgs, skooter, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ nix2vim.overlay ];
+          overlays = [ skooter.overlay ];
         };
       in
       {

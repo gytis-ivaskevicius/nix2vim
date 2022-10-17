@@ -65,6 +65,15 @@ in
       ws = cmd "sp" "Split window horizontally";
       wv = cmd "vs" "Split window vertically";
 
+      xx = cmd "TroubleToggle" "Toggle trouble diagnostics";
+      xw = cmd "TroubleToggle workspace_diagnostics" "Toggle trouble workspace diagnostics";
+      xd = cmd "TroubleToggle document_diagnostics" "Toggle trouble document diagnostics";
+      xq = cmd "TroubleToggle quickfix" "Toggle trouble quickfix list";
+      xl = cmd "TroubleToggle loclist" "Toggle trouble local list";
+      xr = cmd "TroubleToggle lsp_references" "Toggle trouble lsp references";
+      xn = cmdLua "lua require(\"trouble\").next({skip_groups = true, jump = true})<CR>" "Jump next diagnostic";
+      xp = cmdLua "lua require(\"trouble\").previous({skip_groups = true, jump = true})<CR>" "Jump next diagnostic";
+
 
 
       c = {
