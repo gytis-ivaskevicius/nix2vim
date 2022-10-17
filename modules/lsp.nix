@@ -76,6 +76,12 @@ in
     end
   '';
 
+  use.lspconfig.tsserver.setup = callWith {
+    cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" "--tsserver-path" "tsserver" ];
+    filetypes = [ "json" "javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx" ];
+    inherit capabilities;
+  };
+
   use.lspconfig.rnix.setup = callWith {
     cmd = [ (getExe pkgs.rnix-lsp) ];
     inherit capabilities;
