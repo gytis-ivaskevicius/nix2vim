@@ -37,6 +37,12 @@ in
     handler_opts.border = "single";
   };
 
+  use.lspkind.init = callWith {
+    # defines how annotations are shown
+    # default: symbol
+    # options: "text", "text_symbol", "symbol_text", "symbol"
+    mode = "symbol_text";
+  };
   setup.cmp = {
     mapping = {
       "['<C-n>']" = rawLua "cmp.mapping.select_next_item({ behavior = require('cmp').SelectBehavior.Insert })";
