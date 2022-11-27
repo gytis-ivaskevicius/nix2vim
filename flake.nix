@@ -1,63 +1,41 @@
 {
   description = "Next generation neovim configuration framework";
 
-  inputs = {
-    flake-utils.url = github:numtide/flake-utils;
-    nixpkgs.url = github:NixOS/nixpkgs;
-  };
-
-  outputs = { self, flake-utils, nixpkgs }:
+  outputs = { self }:
     let
-      dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
+      dsl = import ./lib/dsl.nix;
+      optionsApi = ./lib/api.options.nix;
+      optionsWrapper = ./lib/wrapper.options.nix;
 
-      overlay = final: _: {
+      nix2luaUtils = import ./lib/utils.nix;
 
-        nix2luaUtils = final.callPackage ./lib/utils.nix { inherit nixpkgs; };
+      neovimBuilder = import ./lib/neovim-builder.nix;
 
-        neovimBuilder = import ./lib/neovim-builder.nix {
-          pkgs = final;
-          lib = final.lib;
-        };
-
-        nix2vimDemo = final.neovimBuilder {
-          imports = [
-            ./modules/essentials.nix
-            ./modules/git.nix
-            ./modules/lsp.nix
-            ./modules/nvim-tree.nix
-            ./modules/styling.nix
-            ./modules/treesitter.nix
-            ./modules/telescope.nix
-            ./modules/which-key.nix
-          ];
-
-          enableViAlias = true;
-          enableVimAlias = true;
-        };
+      nix2vimDemo = { neovimBuilder }: neovimBuilder {
+        imports = builtins.attrValues self.modules.nix2vim;
+        enableViAlias = true;
+        enableVimAlias = true;
       };
-
 
     in
     {
-      inherit overlay;
-      lib.dsl = dsl;
+      lib = { inherit dsl optionsApi optionsWrapper; };
+      blueprints = { inherit nix2luaUtils neovimBuilder nix2vimDemo; };
+
+      modules.nix2vim = {
+        essentials = ./modules/essentials.nix;
+        git = ./modules/git.nix;
+        lsp = ./modules/lsp.nix;
+        nvim-tree = ./modules/nvim-tree.nix;
+        styling = ./modules/styling.nix;
+        treesitter = ./modules/treesitter.nix;
+        telescope = ./modules/telescope.nix;
+        which-key = ./modules/which-key.nix;
+      };
+
       templates.default = {
         path = ./template;
         description = "A very basic neovim configuration";
       };
-    } //
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ overlay ];
-        };
-      in
-      {
-        packages.default = pkgs.nix2vimDemo;
-        apps = import ./apps.nix { inherit pkgs; utils = flake-utils.lib; };
-        checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
-      }
-    );
-
+    };
 }

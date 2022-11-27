@@ -87,7 +87,7 @@ in
   config =
     let
       trace = it: builtins.trace (builtins.toJSON it) it;
-      dsl = import ./dsl.nix { inherit lib; };
+      dsl = import ./dsl.nix;
 
       filterNonNull = mappings: filterAttrs (name: value: value != null) mappings;
 

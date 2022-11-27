@@ -1,5 +1,3 @@
-{ lib }:
-
 let
   inherit (builtins) mapAttrs isFunction isAttrs typeOf concatStringsSep substring elemAt length toJSON foldl' isList attrNames;
   nix2vim = "nix2vim";

@@ -4,7 +4,6 @@
 , bundlerEnv
 , writeText
 , wrapNeovimUnstable
-, nixpkgs
 , stdenv
 }:
 let

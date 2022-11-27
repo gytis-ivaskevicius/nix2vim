@@ -3,7 +3,7 @@
 with lib;
 { ... }@config:
 let
-  dsl = import ./dsl.nix { inherit lib; };
+  dsl = import ./dsl.nix;
   result = evalModules {
     modules = [
       ./api.options.nix
