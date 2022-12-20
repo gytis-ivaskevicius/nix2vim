@@ -8,7 +8,7 @@
     #guess-indent
   ];
 
-  setup.nvim-autopairs = {};
+  setup.nvim-autopairs = { };
   setup.surround.prefix = "S";
 
   set = {

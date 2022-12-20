@@ -3,24 +3,26 @@
 
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs;
-    flake-utils.url = github:numtide/flake-utils;
 
-    nix2vim.url = github:gytis-ivaskevicius/nix2vim;
+    nix2vim.url = github:gytis-ivaskevicius/nix2vim/blueprints;
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
 
-  outputs = { self, nixpkgs, nix2vim, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ nix2vim.overlay ];
-        };
-      in
-      {
+  outputs = { self, nixpkgs, nix2vim }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+      neovimBuilder = pkgs.callPackage nix2vim.blueprints.neovimBuilder { };
+      nix2vimDemo = pkgs.callPackage nix2vim.blueprints.nix2vimDemo { inherit neovimBuilder; };
+    in
+    {
 
-        packages.default = pkgs.neovimBuilder {
+      inherit nix2vimDemo;
+      packages.${system} = {
+        inherit nix2vimDemo;
+
+        default = neovimBuilder {
           imports = [
             ./someModule.nix
           ];
@@ -36,5 +38,6 @@
           '';
 
         };
-      });
+      };
+    };
 }
