@@ -119,7 +119,7 @@ in
   };
 
   use.lspconfig.terraformls.setup = callWith {
-    cmd = [ "${pkgs.terraform-ls}/bin/terraform-lsp" ];
+    cmd = [ "${pkgs.terraform-lsp}/bin/terraform-lsp" ];
     inherit capabilities;
   };
 
