@@ -13,7 +13,7 @@
 
   setup."nvim-treesitter.configs" = {
     #ensure_installed = "all";
-    #ignore_install = [ ];
+    ignore_install = [ "bash" ];
 
     highlight = {
       enable = true;
