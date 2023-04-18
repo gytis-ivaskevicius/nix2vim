@@ -1,7 +1,8 @@
 { lib, pkgs, ... }: {
 
   plugins = with pkgs.vimPlugins; [
-    (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.passthru.allGrammars))
+    #(nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.passthru.allGrammars))
+    nvim-treesitter
     nvim-treesitter-context
     nvim-ts-autotag
     nvim-ts-context-commentstring
@@ -13,7 +14,7 @@
 
   setup."nvim-treesitter.configs" = {
     #ensure_installed = "all";
-    ignore_install = [ "bash" ];
+    #ignore_install = [ "bash" ];
 
     highlight = {
       enable = true;
