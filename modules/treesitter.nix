@@ -16,6 +16,8 @@
     #ensure_installed = "all";
     #ignore_install = [ "bash" ];
 
+    parser_install_dir = "$HOME/.config/nvim/treesitter";
+
     highlight = {
       enable = true;
       use_languagetree = true;
