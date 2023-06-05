@@ -6,6 +6,7 @@
       tree-sitter-bash
       tree-sitter-css
       tree-sitter-dockerfile
+      tree-sitter-hcl
       tree-sitter-html
       tree-sitter-javascript
       tree-sitter-json
