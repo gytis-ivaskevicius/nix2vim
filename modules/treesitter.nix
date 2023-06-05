@@ -2,6 +2,27 @@
 
   plugins = with pkgs.vimPlugins; [
     #(nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.passthru.allGrammars))
+    (nvim-treesitter.withPlugins (plugins: with plugins;[
+      tree-sitter-bash
+      tree-sitter-css
+      tree-sitter-dockerfile
+      tree-sitter-html
+      tree-sitter-javascript
+      tree-sitter-json
+      tree-sitter-lua
+      tree-sitter-make
+      tree-sitter-markdown
+      tree-sitter-nix
+      tree-sitter-python
+      tree-sitter-ruby
+      tree-sitter-rust
+      tree-sitter-scss
+      tree-sitter-terraform
+      tree-sitter-toml
+      tree-sitter-typescript
+      tree-sitter-vim
+      tree-sitter-yaml
+    ]))
     nvim-treesitter
     nvim-treesitter-context
     nvim-ts-autotag
