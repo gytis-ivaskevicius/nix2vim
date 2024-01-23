@@ -28,7 +28,7 @@
     nvim-treesitter-context
     nvim-ts-autotag
     nvim-ts-context-commentstring
-    nvim-ts-rainbow
+    rainbow-delimiters-nvim
     vim-matchup
   ];
 
