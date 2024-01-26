@@ -1,490 +1,759 @@
-## _module.args
+## _module\.args
+
 Additional arguments passed to each module in addition to ones
-like <literal>lib</literal>, <literal>config</literal>,
-and <literal>pkgs</literal>, <literal>modulesPath</literal>.
-</para>
-<para>
-This option is also available to all submodules. Submodules do not
+like ` lib `, ` config `,
+and ` pkgs `, ` modulesPath `\.
+
+This option is also available to all submodules\. Submodules do not
 inherit args from their parent module, nor do they provide args to
-their parent module or sibling submodules. The sole exception to
-this is the argument <literal>name</literal> which is provided by
+their parent module or sibling submodules\. The sole exception to
+this is the argument ` name ` which is provided by
 parent modules to a submodule and contains the attribute name
 the submodule is bound to, or a unique generated name if it is
-not bound to an attribute.
-</para>
-<para>
+not bound to an attribute\.
+
 Some arguments are already passed by default, of which the
-following <emphasis>cannot</emphasis> be changed with this option:
-<itemizedlist>
- <listitem>
-  <para>
-   <varname>lib</varname>: The nixpkgs library.
-  </para>
- </listitem>
- <listitem>
-  <para>
-   <varname>config</varname>: The results of all options after merging the values from all modules together.
-  </para>
- </listitem>
- <listitem>
-  <para>
-   <varname>options</varname>: The options declared in all modules.
-  </para>
- </listitem>
- <listitem>
-  <para>
-   <varname>specialArgs</varname>: The <literal>specialArgs</literal> argument passed to <literal>evalModules</literal>.
-  </para>
- </listitem>
- <listitem>
-  <para>
-   All attributes of <varname>specialArgs</varname>
-  </para>
-  <para>
+following *cannot* be changed with this option:
+
+ - ` lib `: The nixpkgs library\.
+
+ - ` config `: The results of all options after merging the values from all modules together\.
+
+ - ` options `: The options declared in all modules\.
+
+ - ` specialArgs `: The ` specialArgs ` argument passed to ` evalModules `\.
+
+ - All attributes of ` specialArgs `
+   
    Whereas option values can generally depend on other option values
-   thanks to laziness, this does not apply to <literal>imports</literal>, which
-   must be computed statically before anything else.
-  </para>
-  <para>
-   For this reason, callers of the module system can provide <literal>specialArgs</literal>
-   which are available during import resolution.
-  </para>
-  <para>
-   For NixOS, <literal>specialArgs</literal> includes
-   <varname>modulesPath</varname>, which allows you to import
+   thanks to laziness, this does not apply to ` imports `, which
+   must be computed statically before anything else\.
+   
+   For this reason, callers of the module system can provide ` specialArgs `
+   which are available during import resolution\.
+   
+   For NixOS, ` specialArgs ` includes
+   ` modulesPath `, which allows you to import
    extra modules from the nixpkgs package tree without having to
    somehow make the module aware of the location of the
-   <literal>nixpkgs</literal> or NixOS directories.
-<programlisting>
-{ modulesPath, ... }: {
-  imports = [
-    (modulesPath + "/profiles/minimal.nix")
-  ];
-}
-</programlisting>
-  </para>
- </listitem>
-</itemizedlist>
-</para>
-<para>
+   ` nixpkgs ` or NixOS directories\.
+   
+   ```
+   { modulesPath, ... }: {
+     imports = [
+       (modulesPath + "/profiles/minimal.nix")
+     ];
+   }
+   ```
+
 For NixOS, the default value for this option includes at least this argument:
-<itemizedlist>
- <listitem>
-  <para>
-   <varname>pkgs</varname>: The nixpkgs package set according to
-   the <option>nixpkgs.pkgs</option> option.
-  </para>
- </listitem>
-</itemizedlist>
+
+ - ` pkgs `: The nixpkgs package set according to
+   the ` nixpkgs.pkgs ` option\.
 
 
-*_Type_*:
+
+*Type:*
 lazy attribute set of raw value
 
-
-
+*Declared by:*
+ - [\<nixpkgs/lib/modules\.nix>](https://github.com/NixOS/nixpkgs/blob//lib/modules.nix)
 
 
 
 ## cmap
-Defines 'Command-line mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Command-line mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## cnoremap
-Defines 'Command-line mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Command-line mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
+
+
+## function
+
+
+
+Attribute set representing \<function-name> -> \<function-body> pairs
+
+
+
+*Type:*
+attribute set of string
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
+{
+  abc = "print 'hello world'";
+}
 ```
+
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
+
 
 
 ## imap
-Defines 'Insert and Replace mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Insert and Replace mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## inoremap
-Defines 'Insert and Replace mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Insert and Replace mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## lua
+
+
+
 Lua config
 
-*_Type_*:
-strings concatenated with "\n"
 
 
-*_Default_*
-```
-""
-```
+*Type:*
+strings concatenated with “\\n”
 
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
 
 
 ## nmap
-Defines 'Normal mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Normal mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## nnoremap
-Defines 'Normal mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Normal mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## omap
-Defines 'Operator pending mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Operator pending mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## onoremap
-Defines 'Operator pending mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Operator pending mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## set
-'vim.opt' alias. Acts same as vimscript 'set' command
-
-*_Type_*:
-attribute set of boolean or floating point number or signed integer or string
 
 
-*_Default_*
+
+‘vim\.opt’ alias\. Acts same as vimscript ‘set’ command
+
+
+
+*Type:*
+attribute set of (boolean or floating point number or signed integer or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  set = {
+    clipboard = "unnamed,unnamedplus";
+    termguicolors = true;
+  };
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"set":{"clipboard":"unnamed,unnamedplus","termguicolors":true}}
-```
 
 
 ## setup
-Results in 'require(<name>).setup(<attrs>)'.
-
-*_Type_*:
-attribute set of attribute set
 
 
-*_Default_*
-```
-{}
-```
 
+Results in ‘require(\<name>)\.setup(\<attrs>)’\.
+
+
+
+*Type:*
+attribute set of (attribute set)
+
+
+
+*Default:*
+` { } `
+
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
 
 
 ## smap
-Defines 'Select mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Select mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## snoremap
-Defines 'Select mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Select mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## tmap
-Defines 'Terminal mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Terminal mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## tnoremap
-Defines 'Terminal mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Terminal mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## use
-Allows requiring modules. Gets parset to "require('<name>').<attrs>"
-
-*_Type_*:
-attribute set of attribute set
 
 
-*_Default_*
-```
-{}
-```
 
+Allows requiring modules\. Gets parset to “require(‘\<name>’)\.\<attrs>”
+
+
+
+*Type:*
+attribute set of (attribute set)
+
+
+
+*Default:*
+` { } `
+
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
 
 
 ## vim
-Represents 'vim' namespace from neovim lua api.
 
-*_Type_*:
+
+
+Represents ‘vim’ namespace from neovim lua api\.
+
+
+
+*Type:*
 attribute set
 
 
-*_Default_*
-```
-{}
-```
+
+*Default:*
+` { } `
 
 
-*_Example_*
+
+*Example:*
+
 ```
-{"vim":{"opt":{"clipboard":"unnamed,unnamedplus","termguicolors":true}}}
+{
+  vim = {
+    opt = {
+      clipboard = "unnamed,unnamedplus";
+      termguicolors = true;
+    };
+  };
+}
 ```
+
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
+
 
 
 ## vimscript
+
+
+
 Vimscript config
 
-*_Type_*:
-strings concatenated with "\n"
 
 
-*_Default_*
-```
-""
-```
+*Type:*
+strings concatenated with “\\n”
 
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
 
 
 ## vmap
-Defines 'Visual and Select mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Visual and Select mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## vnoremap
-Defines 'Visual and Select mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Visual and Select mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## xmap
-Defines 'Visual mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Visual mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
 
 
 ## xnoremap
-Defines 'Visual mode' mappings
-
-*_Type_*:
-attribute set of null or string
 
 
-*_Default_*
+
+Defines ‘Visual mode’ mappings
+
+
+
+*Type:*
+attribute set of (null or string)
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
 ```
-{}
+{
+  C-p = ":FZF<CR>";
+  abc = ":FZF<CR>";
+}
 ```
 
-
-*_Example_*
-```
-{"C-p":":FZF<CR>","abc":":FZF<CR>"}
-```
+*Declared by:*
+ - [/nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api\.options\.nix](file:///nix/store/mcssnwfdfsq4hw96x39kciqmv7ndvc59-source/lib/api.options.nix)
 
 
