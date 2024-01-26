@@ -12,9 +12,9 @@
   setup.surround.prefix = "S";
 
   set = {
+    confirm = true;
     cursorline = true;
     laststatus = 3;
-    confirm = true;
     matchpairs = "(:),{:},[:],<:>";
     mouse = "a";
     number = true;
@@ -53,6 +53,9 @@
   nmap."<C-k>" = "<C-w>k";
   nmap."<C-l>" = "<C-w>l";
 
+  # Switching buffers
+  nmap."<leader>n" = ":bnext";
+  nmap."<leader>p" = ":bprevious";
 
   # q to quit, Q to record macro
   nnoremap.Q = "q";
@@ -69,6 +72,11 @@
   # Ctrl+Backspace to delete previous word. https://vi.stackexchange.com/questions/16139/s-bs-and-c-bs-mappings-not-working
   inoremap."<C-BS>" = "<C-W>";
 
+  lua = ''
+    vim.opt.shortmess:append "sI"
+    vim.opt.fillchars = { eob = " " }
+    vim.opt.whichwrap:append "<>[]hl"
+  '';
 
   vimscript = ''
     autocmd FileType nix setlocal shiftwidth=2 tabstop=2

@@ -21,11 +21,11 @@
 
         nix2vimDemo = final.neovimBuilder {
           imports = [
+            ./modules/nvchad.nix
             ./modules/essentials.nix
             ./modules/git.nix
             ./modules/lsp.nix
             ./modules/nvim-tree.nix
-            ./modules/styling.nix
             ./modules/treesitter.nix
             ./modules/telescope.nix
             ./modules/which-key.nix
