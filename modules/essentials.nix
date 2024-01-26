@@ -12,37 +12,25 @@
   setup.surround.prefix = "S";
 
   set = {
-    hidden = true;
-    hlsearch = true;
-    ignorecase = true;
-    list = true;
-    listchars = "tab:→→,trail:●,nbsp:○";
+    cursorline = true;
+    laststatus = 3;
+    confirm = true;
     matchpairs = "(:),{:},[:],<:>";
     mouse = "a";
     number = true;
     scrolloff = 15;
     showmatch = true;
     sidescrolloff = 15;
-    signcolumn = "yes";
     smartcase = true;
+    smartindent = true;
     splitbelow = true;
     splitright = true;
+    swapfile = false;
     termguicolors = true;
-    #title = true; # Visual artifacts
     undofile = true;
-    updatetime = 100;
-    visualbell = true;
     wildignore = "*/tmp/*,*.so,*.swp,*.pyc,*.db,*.sqlite,*.class,*/node_modules/*,*/.git/*";
     wildmode = "list:longest,list:full";
     wrap = false;
-
-    expandtab = true;
-    shiftwidth = 4;
-    smartindent = true;
-    softtabstop = 4;
-    tabstop = 4;
-
-    #cursorline = true;
   };
 
   vim.g = {
@@ -73,9 +61,6 @@
   # q to quit, Q to record macro
   vnoremap."<" = "<gv";
   vnoremap.">" = ">gv";
-
-  # Make Y consistent with commands like D,C
-  nmap.Y = "y$";
 
   nmap."<C-c>" = ''"+yy'';
   vmap."<C-c>" = ''"+y'';
