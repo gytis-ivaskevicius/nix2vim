@@ -17,7 +17,12 @@ in
     vim-matchup
   ];
 
-  setup.treesitter-context.setup = { };
+  setup.treesitter-context = {
+    max_lines = 4;
+    min_window_height = 30;
+    multiline_threshold = 1;
+    mode = "topline";
+  };
 
   setup."nvim-treesitter.configs" = {
     highlight = {
