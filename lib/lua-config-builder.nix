@@ -5,7 +5,8 @@ with lib;
 let
   result = evalModules {
     modules = [
-      (import ./api.options.nix)
+      ./api.options.nix
+      ./treesitter.options.nix
       config
     ];
     specialArgs = { inherit pkgs; };

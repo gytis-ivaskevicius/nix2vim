@@ -8,6 +8,7 @@ let
     modules = [
       ./api.options.nix
       ./wrapper.options.nix
+      ./treesitter.options.nix
       config
     ];
     specialArgs = { inherit pkgs dsl; };

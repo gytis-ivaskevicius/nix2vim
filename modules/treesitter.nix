@@ -1,15 +1,7 @@
 { lib, pkgs, dsl, ... }:
 
-let
-  treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
-  treesitter-parsers = pkgs.symlinkJoin {
-    name = "treesitter-parsers";
-    paths = treesitter.dependencies;
-  };
-in
 {
   plugins = with pkgs.vimPlugins; [
-    treesitter
     nvim-treesitter-context
     nvim-ts-autotag
     nvim-ts-context-commentstring
@@ -17,6 +9,7 @@ in
     rainbow-delimiters-nvim
     vim-matchup
   ];
+
 
   setup.treesitter-context = {
     max_lines = 4;
@@ -32,7 +25,8 @@ in
     pre_hook = dsl.rawLua "require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()";
   };
 
-  setup."nvim-treesitter.configs" = {
+  treesitter.enable = true;
+  treesitter.options = {
     highlight = {
       enable = true;
       use_languagetree = true;
@@ -71,11 +65,6 @@ in
     };
     autotag.enable = true;
   };
-
-  lua = ''
-    vim.opt.runtimepath:append("${treesitter}")
-    vim.opt.runtimepath:append("${treesitter-parsers}")
-  '';
 
   lua' = ''
     vim.cmd[[highlight clear MatchWord]]
