@@ -19,7 +19,7 @@ in
         vim.opt.clipboard = "unnamed,unnamedplus";
       };
       description = "Represents 'vim' namespace from neovim lua api.";
-      type = types.attrs;
+      type = types.anything;
     };
 
     set = mkOption {
