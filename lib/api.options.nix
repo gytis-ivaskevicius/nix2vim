@@ -59,10 +59,22 @@ in
       description = "Lua config";
     };
 
+    lua' = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Lua config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering";
+    };
+
     vimscript = mkOption {
       type = types.lines;
       default = "";
       description = "Vimscript config";
+    };
+
+    vimscript' = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering";
     };
 
     nnoremap = mkMappingOption "Defines 'Normal mode' mappings";
@@ -161,6 +173,7 @@ in
         local map = vim.api.nvim_set_keymap
         ${noremaps}
         ${remaps}
+        ${config.lua'}
       '';
     };
 }

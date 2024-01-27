@@ -124,6 +124,7 @@ in
           ${cfg.vimscript}
 
           luafile ${pkgs.writeText "nix2vim.lua" cfg.lua}
+          ${cfg.vimscript'}
         '';
       };
     };
