@@ -92,7 +92,7 @@ in
   };
 
   use.lspconfig.jsonls.setup = callWith {
-    cmd = [ (getExe pkgs.nodePackages.vscode-json-languageserver) "--stdio" ];
+    cmd = [ "${pkgs.nodePackages.vscode-json-languageserver}/bin/vscode-json-languageserver" "--stdio" ];
     inherit capabilities;
   };
 

@@ -53,13 +53,8 @@
   nmap."<C-k>" = "<C-w>k";
   nmap."<C-l>" = "<C-w>l";
 
-  # Switching buffers
-  nmap."<leader>n" = ":bnext";
-  nmap."<leader>p" = ":bprevious";
-
   # q to quit, Q to record macro
   nnoremap.Q = "q";
-  nnoremap.q = ":q<cr>";
 
   # q to quit, Q to record macro
   vnoremap."<" = "<gv";

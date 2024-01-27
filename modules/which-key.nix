@@ -10,10 +10,14 @@ in
     which-key-nvim
   ];
 
+  vimscript = ''
+    autocmd BufDelete * if len(filter(range(1, bufnr('$')), '! empty(bufname(v:val)) && buflisted(v:val)')) == 1 | quit | endif
+  '';
 
   use.which-key.setup = callWith { };
   use.which-key.register = dsl.callWith {
     K = cmdLua "show_documentation()" "Get Type Information";
+    q = cmd "bdelete" "Delete buffer";
 
     g = {
       name = "Gitsigns";
@@ -52,8 +56,8 @@ in
       bD = cmd "Bclose!" "Delete buffer aggressively";
       bN = cmd "tabedit" "New buffer/tab";
       bd = cmd "q" "Delete buffer";
-      bn = cmd "bnext" "Next buffer";
-      bp = cmd "bprev" "Previous buffer";
+      n = cmd "bnext" "Next buffer";
+      p = cmd "bprev" "Previous buffer";
       gb = cmd "BlamerToggle" "Toggle git blame";
       gc = cmd "Neogen" "generate comments boilerplate";
       gs = cmd "lua require('neogit').open()" "Open neogit (magit clone)";
