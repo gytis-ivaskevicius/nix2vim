@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, dsl, ... }:
 
 let
   treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
@@ -13,6 +13,7 @@ in
     nvim-treesitter-context
     nvim-ts-autotag
     nvim-ts-context-commentstring
+    comment-nvim
     rainbow-delimiters-nvim
     vim-matchup
   ];
@@ -22,6 +23,13 @@ in
     min_window_height = 30;
     multiline_threshold = 1;
     mode = "topline";
+  };
+
+  setup.Comment = {
+    toggler.line = "<C-_>";
+    opleader.line = "<C-_>";
+    mappings.extra = false;
+    pre_hook = dsl.rawLua "require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()";
   };
 
   setup."nvim-treesitter.configs" = {
@@ -61,12 +69,16 @@ in
         };
       };
     };
-    matchup.enable = true;
     autotag.enable = true;
   };
 
   lua = ''
     vim.opt.runtimepath:append("${treesitter}")
     vim.opt.runtimepath:append("${treesitter-parsers}")
+  '';
+
+  lua' = ''
+    vim.cmd[[highlight clear MatchWord]]
+    vim.cmd[[highlight MatchWord cterm=italic,underline gui=italic,underline]]
   '';
 }
