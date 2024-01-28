@@ -1,4 +1,4 @@
-{ pkgs, dsl, ... }: with dsl;
+{ pkgs, lib, dsl, ... }: with dsl;
 let
   cmd = command: desc: [ "<cmd>${command}<cr>" desc ];
   cmdLua = command: (cmd "lua ${command}");
@@ -14,7 +14,14 @@ in
     autocmd BufDelete * if len(filter(range(1, bufnr('$')), '! empty(bufname(v:val)) && buflisted(v:val)')) == 1 | quit | endif
   '';
 
-  use.which-key.setup = callWith { };
+  setup.which-key = {
+    window.padding = [1 1 1 1];
+    layout = {
+      height.max = 40;
+      width.max = 70;
+      align = "center";
+    };
+  };
   use.which-key.register = dsl.callWith {
     K = cmdLua "show_documentation()" "Get Type Information";
     q = cmd "bdelete" "Delete buffer";
@@ -53,19 +60,10 @@ in
       gg = cmd "Telescope live_grep" "Fzf fuzzy search";
       l = cmd "Telescope resume" "last telescope query";
 
-      bD = cmd "Bclose!" "Delete buffer aggressively";
-      bN = cmd "tabedit" "New buffer/tab";
-      bd = cmd "q" "Delete buffer";
       n = cmd "bnext" "Next buffer";
       p = cmd "bprev" "Previous buffer";
-      gb = cmd "BlamerToggle" "Toggle git blame";
-      gc = cmd "Neogen" "generate comments boilerplate";
       gs = cmd "lua require('neogit').open()" "Open neogit (magit clone)";
       wd = cmd "q" "Delete window";
-      wh = cmd "wincmd h" "Move window left";
-      wj = cmd "wincmd j" "Move window down";
-      wk = cmd "wincmd k" "Move window up";
-      wl = cmd "wincmd l" "Move window right";
       ws = cmd "sp" "Split window horizontally";
       wv = cmd "vs" "Split window vertically";
 
