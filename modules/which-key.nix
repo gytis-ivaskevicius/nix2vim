@@ -15,7 +15,7 @@ in
   '';
 
   setup.which-key = {
-    window.padding = [1 1 1 1];
+    window.padding = [ 1 1 1 1 ];
     layout = {
       height.max = 40;
       width.max = 70;

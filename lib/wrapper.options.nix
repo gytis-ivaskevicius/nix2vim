@@ -17,7 +17,7 @@ in
       type = types.str;
       default = "";
       description = "Should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh";
-      example = "--set ABC 123";
+      example = literalExpression "\"--set PATH \${pkgs.lib.makeBinPath [pkgs.ripgrep pkgs.fd]}\";";
     };
 
     drvSuffix = mkOption {

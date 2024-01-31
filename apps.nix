@@ -8,21 +8,23 @@ let
 
         specialArgs = { inherit pkgs dsl; };
       }).options;
-      json =   ( (pkgs.nixosOptionsDoc { inherit options; }).optionsNix);
+      json = builtins.removeAttrs (pkgs.nixosOptionsDoc { inherit options; }).optionsNix [ "_module.args" ];
       parseDefinition = it: if builtins.isString it then it else if it._type == "literalExpression" then it.text else throw "Unknown definition: ${it}";
     in
-    pkgs.writeText "options.md" (lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: value: ''
-      ## ${name}
+    pkgs.writeText "options.md" (lib.concatStringsSep "\n\n" (lib.mapAttrsToList
+      (name: value: ''
+        ## ${name}
 
-      ${value.description}
+        ${value.description}
 
-      **Type:** ${value.type}
-      **Default:** `${parseDefinition (value.default or "")}`
-      **Example:**
-      ```nix
-      ${parseDefinition (value.example or "")}
-      ```
-    '') json));
+        **Type:** ${value.type}
+        **Default:** `${parseDefinition (value.default or "")}`
+        **Example:**
+        ```nix
+        ${parseDefinition (value.example or "")}
+        ```
+      '')
+      json));
   mkApp = drv: utils.mkApp { inherit drv; };
 in
 {

@@ -50,7 +50,7 @@ in
     handler_opts.border = "single";
   };
 
-  use."luasnip.loaders.from_vscode".lazy_load = callWith {};
+  use."luasnip.loaders.from_vscode".lazy_load = callWith { };
 
   use.lspkind.init = callWith {
     # defines how annotations are shown
@@ -103,7 +103,7 @@ in
             fallback()
           end
         end, { "i", "s" })
-    '';
+      '';
     };
     sources = [
       { name = "nvim_lsp"; }
@@ -134,15 +134,15 @@ in
   };
 
   use.lspconfig.nil_ls.setup = callWith {
-   cmd = [ (getExe pkgs.nil) ];
-   inherit capabilities;
-   settings = {
-     "['nil']".nix = {
-       maxMemoryMB = 8192;
-       flake.autoArchive = true;
-       flake.autoEvalInputs = true;
-     };
-   };
+    cmd = [ (getExe pkgs.nil) ];
+    inherit capabilities;
+    settings = {
+      "['nil']".nix = {
+        maxMemoryMB = 8192;
+        flake.autoArchive = true;
+        flake.autoEvalInputs = true;
+      };
+    };
   };
 
   use.lspconfig.jsonls.setup = callWith {
