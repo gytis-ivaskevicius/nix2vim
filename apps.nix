@@ -8,13 +8,26 @@ let
 
         specialArgs = { inherit pkgs dsl; };
       }).options;
+      json =   ( (pkgs.nixosOptionsDoc { inherit options; }).optionsNix);
+      parseDefinition = it: if builtins.isString it then it else if it._type == "literalExpression" then it.text else throw "Unknown definition: ${it}";
     in
-    (pkgs.nixosOptionsDoc { inherit options; }).optionsCommonMark;
+    pkgs.writeText "options.md" (lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: value: ''
+      ## ${name}
+
+      ${value.description}
+
+      **Type:** ${value.type}
+      **Default:** `${parseDefinition (value.default or "")}`
+      **Example:**
+      ```nix
+      ${parseDefinition (value.example or "")}
+      ```
+    '') json));
   mkApp = drv: utils.mkApp { inherit drv; };
 in
 {
   generateDocs = mkApp (pkgs.writeShellScriptBin "create-docs.sh" ''
-    mkdir docs
+    mkdir -p docs
     cp -f ${generateMarkdown ./lib/api.options.nix} docs/api.options.md
     cp -f ${generateMarkdown ./lib/wrapper.options.nix} docs/wrapper.options.md
   '');
