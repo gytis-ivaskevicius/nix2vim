@@ -18,7 +18,9 @@ let
         ${value.description}
 
         **Type:** ${value.type}
+
         **Default:** `${parseDefinition (value.default or "")}`
+
         **Example:**
         ```nix
         ${parseDefinition (value.example or "")}

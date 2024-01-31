@@ -3,7 +3,9 @@
 Defines 'Command-line mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -18,7 +20,9 @@ Defines 'Command-line mode' mappings
 Defines 'Command-line mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -33,7 +37,9 @@ Defines 'Command-line mode' mappings
 Attribute set representing <function-name> -> <function-body> pairs
 
 **Type:** attribute set of string
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -47,7 +53,9 @@ Attribute set representing <function-name> -> <function-body> pairs
 Defines 'Insert and Replace mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -62,7 +70,9 @@ Defines 'Insert and Replace mode' mappings
 Defines 'Insert and Replace mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -77,7 +87,9 @@ Defines 'Insert and Replace mode' mappings
 Lua config
 
 **Type:** strings concatenated with "\n"
+
 **Default:** `""`
+
 **Example:**
 ```nix
 
@@ -89,7 +101,9 @@ Lua config
 Lua config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering
 
 **Type:** strings concatenated with "\n"
+
 **Default:** `""`
+
 **Example:**
 ```nix
 
@@ -101,7 +115,9 @@ Lua config which is placed after `lua` script. Unfortunatelly sometimes config r
 Defines 'Normal mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -116,7 +132,9 @@ Defines 'Normal mode' mappings
 Defines 'Normal mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -131,7 +149,9 @@ Defines 'Normal mode' mappings
 Defines 'Operator pending mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -146,7 +166,9 @@ Defines 'Operator pending mode' mappings
 Defines 'Operator pending mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -161,7 +183,9 @@ Defines 'Operator pending mode' mappings
 'vim.opt' alias. Acts same as vimscript 'set' command
 
 **Type:** attribute set of (boolean or floating point number or signed integer or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -178,7 +202,9 @@ Defines 'Operator pending mode' mappings
 Results in 'require(<name>).setup(<attrs>)'.
 
 **Type:** attribute set of (attribute set)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 
@@ -190,7 +216,9 @@ Results in 'require(<name>).setup(<attrs>)'.
 Defines 'Select mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -205,7 +233,9 @@ Defines 'Select mode' mappings
 Defines 'Select mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -220,7 +250,9 @@ Defines 'Select mode' mappings
 Defines 'Terminal mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -235,7 +267,9 @@ Defines 'Terminal mode' mappings
 Defines 'Terminal mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -250,7 +284,9 @@ Defines 'Terminal mode' mappings
 Allows requiring modules. Gets parset to "require('<name>').<attrs>"
 
 **Type:** attribute set of (attribute set)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 
@@ -262,7 +298,9 @@ Allows requiring modules. Gets parset to "require('<name>').<attrs>"
 Represents 'vim' namespace from neovim lua api.
 
 **Type:** anything
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -281,7 +319,9 @@ Represents 'vim' namespace from neovim lua api.
 Vimscript config
 
 **Type:** strings concatenated with "\n"
+
 **Default:** `""`
+
 **Example:**
 ```nix
 
@@ -293,7 +333,9 @@ Vimscript config
 Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering
 
 **Type:** strings concatenated with "\n"
+
 **Default:** `""`
+
 **Example:**
 ```nix
 
@@ -305,7 +347,9 @@ Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes c
 Defines 'Visual and Select mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -320,7 +364,9 @@ Defines 'Visual and Select mode' mappings
 Defines 'Visual and Select mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -335,7 +381,9 @@ Defines 'Visual and Select mode' mappings
 Defines 'Visual mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
@@ -350,7 +398,9 @@ Defines 'Visual mode' mappings
 Defines 'Visual mode' mappings
 
 **Type:** attribute set of (null or string)
+
 **Default:** `{ }`
+
 **Example:**
 ```nix
 {
