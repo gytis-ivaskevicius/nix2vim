@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) replaceStrings mkOption types literalExample flatten mapAttrsToList mapAttrs filterAttrs concatStringsSep filter attrValues;
+  inherit (lib) replaceStrings mkOption types literalExpression flatten mapAttrsToList mapAttrs filterAttrs concatStringsSep filter attrValues;
   mkMappingOption = description: example: mkOption {
     inherit description example;
     default = { };
@@ -32,7 +32,7 @@ in
     };
 
     function = mkOption {
-      example = literalExample ''
+      example = literalExpression ''
         {
           # Gets parsed to:
           # function abc()
@@ -49,7 +49,7 @@ in
     use = mkOption {
       description = ''Allows requiring modules. Gets parset to "require('<name>').<attrs>"'';
       type = with types; attrsOf attrs;
-      example = literalExample ''
+      example = literalExpression ''
         use.which-key.register = dsl.callWith {
           q = cmd "bdelete" "Delete buffer";
         }
@@ -60,7 +60,7 @@ in
     setup = mkOption {
       description = ''Results in 'require(<name>).setup(<attrs>)'.'';
       type = with types; attrsOf attrs;
-      example = literalExample ''
+      example = literalExpression ''
         setup.lsp_signature = {
           bind = true;
           hint_enable = false;

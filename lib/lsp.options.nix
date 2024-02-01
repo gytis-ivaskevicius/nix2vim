@@ -1,6 +1,6 @@
 { pkgs, config, lib, dsl, ... }: with dsl;
 let
-  inherit (lib) getExe types mkOption mapAttrs;
+  inherit (lib) getExe types mkOption mapAttrs literalExpression;
   cfg = config.lspconfig;
   capabilities = rawLua "capabilities";
 in
@@ -40,17 +40,15 @@ in
         end
         ```
       '';
-      example = {
-        tsserver = literalExpression ''
-          {
-            cmd = [ (lib.getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
-            filetypes = [ "json" "javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx" ];
-            on_attach = '''
-              print("Hello world from your LSP!!!")
-            ''';
-          };
-        '';
-      };
+      example = literalExpression ''
+        tsserver = {
+          cmd = [ (lib.getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
+          filetypes = [ "json" "javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx" ];
+          on_attach = '''
+            print("Hello world from your LSP!!!")
+          ''';
+        };
+      '';
     };
   };
 
