@@ -1,20 +1,7 @@
-## drv
-
-This option contains the store path that represents neovim.
-
-**Type:** package
-
-**Default:** ``
-
-**Example:**
-```nix
-
-```
-
-
 ## drvSuffix
 
 Suffix of generated neovim derivation
+
 
 **Type:** string
 
@@ -22,13 +9,14 @@ Suffix of generated neovim derivation
 
 **Example:**
 ```nix
-
+"-my-awesome-neovim-distribution"
 ```
 
 
 ## enableViAlias
 
 Whether to enable 'vi' alias.
+
 
 **Type:** boolean
 
@@ -44,6 +32,7 @@ true
 
 Whether to enable 'vim' alias.
 
+
 **Type:** boolean
 
 **Default:** `false`
@@ -58,9 +47,10 @@ true
 
 The function you would have passed to lua.withPackages
 
+
 **Type:** function that evaluates to a(n) list of package
 
-**Default:** `<function>`
+**Default:** `"_: [ ]"`
 
 **Example:**
 ```nix
@@ -72,6 +62,7 @@ it: [ it.cjson ]
 ## extraMakeWrapperArgs
 
 Should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
+
 
 **Type:** string
 
@@ -87,9 +78,10 @@ Should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/ma
 
 The function you would have passed to python.withPackages
 
+
 **Type:** function that evaluates to a(n) list of package
 
-**Default:** `<function>`
+**Default:** `"_: [ ]"`
 
 **Example:**
 ```nix
@@ -101,6 +93,7 @@ it: [ it.requests ]
 ## optionalPlugins
 
 Optional plugins
+
 
 **Type:** list of package
 
@@ -117,9 +110,10 @@ with pkgs.vimPlugins; [ dracula-vim ]
 
 Neovim package to use.
 
+
 **Type:** package
 
-**Default:** `<derivation neovim-unwrapped-0.9.5>`
+**Default:** `"pkgs.neovim-unwrapped"`
 
 **Example:**
 ```nix
@@ -130,6 +124,7 @@ pkgs.neovim-unwrapped
 ## packages
 
 Attributes gets passed to 'configure.packages'
+
 
 **Type:** attribute set of (submodule)
 
@@ -145,9 +140,10 @@ with pkgs.vimPlugins; {
 ```
 
 
-## packages.<name>.opt
+## packages.\<name\>.opt
 
 Optional plugins
+
 
 **Type:** list of package
 
@@ -160,9 +156,10 @@ with pkgs.vimPlugins; [ dracula-vim ]
 ```
 
 
-## packages.<name>.start
+## packages.\<name\>.start
 
 Plugins to be autoloaded
+
 
 **Type:** list of package
 
@@ -179,6 +176,7 @@ with pkgs.vimPlugins; [ dracula-vim ]
 
 Plugins to be autoloaded
 
+
 **Type:** list of package
 
 **Default:** `[ ]`
@@ -194,6 +192,7 @@ with pkgs.vimPlugins; [ dracula-vim ]
 
 Whether to enable Node.js.
 
+
 **Type:** boolean
 
 **Default:** `false`
@@ -208,6 +207,7 @@ true
 
 Whether to enable Python 3.
 
+
 **Type:** boolean
 
 **Default:** `false`
@@ -221,6 +221,7 @@ true
 ## withRuby
 
 Whether to enable Ruby.
+
 
 **Type:** boolean
 

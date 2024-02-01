@@ -13,13 +13,14 @@ let
     in
     pkgs.writeText "options.md" (lib.concatStringsSep "\n\n" (lib.mapAttrsToList
       (name: value: ''
-        ## ${name}
+        ## ${builtins.replaceStrings ["<" ">"] [ "\\<" "\\>"] name}
 
         ${value.description}
 
+
         **Type:** ${value.type}
 
-        **Default:** `${parseDefinition (value.default or "")}`
+        **Default:** `${value.defaultText or parseDefinition (value.default or "")}`
 
         **Example:**
         ```nix

@@ -2,6 +2,7 @@
 
 Defines 'Command-line mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -18,6 +19,7 @@ Defines 'Command-line mode' mappings
 ## cnoremap
 
 Defines 'Command-line mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
@@ -36,6 +38,7 @@ Defines 'Command-line mode' mappings
 
 Attribute set representing <function-name> -> <function-body> pairs
 
+
 **Type:** attribute set of string
 
 **Default:** `{ }`
@@ -51,6 +54,7 @@ Attribute set representing <function-name> -> <function-body> pairs
 ## imap
 
 Defines 'Insert and Replace mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
@@ -69,6 +73,7 @@ Defines 'Insert and Replace mode' mappings
 
 Defines 'Insert and Replace mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -86,6 +91,7 @@ Defines 'Insert and Replace mode' mappings
 
 Lua config
 
+
 **Type:** strings concatenated with "\n"
 
 **Default:** `""`
@@ -100,6 +106,7 @@ Lua config
 
 Lua config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering
 
+
 **Type:** strings concatenated with "\n"
 
 **Default:** `""`
@@ -113,6 +120,7 @@ Lua config which is placed after `lua` script. Unfortunatelly sometimes config r
 ## nmap
 
 Defines 'Normal mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
@@ -131,6 +139,7 @@ Defines 'Normal mode' mappings
 
 Defines 'Normal mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -147,6 +156,7 @@ Defines 'Normal mode' mappings
 ## omap
 
 Defines 'Operator pending mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
@@ -165,6 +175,7 @@ Defines 'Operator pending mode' mappings
 
 Defines 'Operator pending mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -181,6 +192,7 @@ Defines 'Operator pending mode' mappings
 ## set
 
 'vim.opt' alias. Acts same as vimscript 'set' command
+
 
 **Type:** attribute set of (boolean or floating point number or signed integer or string)
 
@@ -201,6 +213,7 @@ Defines 'Operator pending mode' mappings
 
 Results in 'require(<name>).setup(<attrs>)'.
 
+
 **Type:** attribute set of (attribute set)
 
 **Default:** `{ }`
@@ -214,6 +227,7 @@ Results in 'require(<name>).setup(<attrs>)'.
 ## smap
 
 Defines 'Select mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
@@ -232,6 +246,7 @@ Defines 'Select mode' mappings
 
 Defines 'Select mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -248,6 +263,7 @@ Defines 'Select mode' mappings
 ## tmap
 
 Defines 'Terminal mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
@@ -266,6 +282,7 @@ Defines 'Terminal mode' mappings
 
 Defines 'Terminal mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -283,6 +300,7 @@ Defines 'Terminal mode' mappings
 
 Allows requiring modules. Gets parset to "require('<name>').<attrs>"
 
+
 **Type:** attribute set of (attribute set)
 
 **Default:** `{ }`
@@ -296,6 +314,7 @@ Allows requiring modules. Gets parset to "require('<name>').<attrs>"
 ## vim
 
 Represents 'vim' namespace from neovim lua api.
+
 
 **Type:** anything
 
@@ -318,6 +337,7 @@ Represents 'vim' namespace from neovim lua api.
 
 Vimscript config
 
+
 **Type:** strings concatenated with "\n"
 
 **Default:** `""`
@@ -332,6 +352,7 @@ Vimscript config
 
 Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering
 
+
 **Type:** strings concatenated with "\n"
 
 **Default:** `""`
@@ -345,6 +366,7 @@ Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes c
 ## vmap
 
 Defines 'Visual and Select mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
@@ -363,6 +385,7 @@ Defines 'Visual and Select mode' mappings
 
 Defines 'Visual and Select mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -380,6 +403,7 @@ Defines 'Visual and Select mode' mappings
 
 Defines 'Visual mode' mappings
 
+
 **Type:** attribute set of (null or string)
 
 **Default:** `{ }`
@@ -396,6 +420,7 @@ Defines 'Visual mode' mappings
 ## xnoremap
 
 Defines 'Visual mode' mappings
+
 
 **Type:** attribute set of (null or string)
 
