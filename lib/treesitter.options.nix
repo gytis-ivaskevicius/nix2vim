@@ -18,6 +18,26 @@ in
       default = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
       defaultText = literalExpression "pkgs.vimPlugins.nvim-treesitter.withAllGrammars";
       description = lib.mdDoc "nvim-treesitter plugin to use. May be configured with different grammars";
+      example = literalExpression ''
+        (pkgs.vimPlugins.nvim-treesitter.withPlugins (grammars: with grammars; [
+          tree-sitter-bash
+          tree-sitter-c
+          tree-sitter-fish
+          tree-sitter-hcl
+          tree-sitter-ini
+          tree-sitter-json
+          tree-sitter-lua
+          tree-sitter-markdown
+          tree-sitter-markdown-inline
+          tree-sitter-nix
+          tree-sitter-puppet
+          tree-sitter-python
+          tree-sitter-rasi
+          tree-sitter-toml
+          tree-sitter-vimdoc
+          tree-sitter-yaml
+        ]))
+      '';
     };
 
     options = mkOption {
