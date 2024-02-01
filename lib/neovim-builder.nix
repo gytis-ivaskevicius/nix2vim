@@ -9,6 +9,7 @@ let
       ./api.options.nix
       ./wrapper.options.nix
       ./treesitter.options.nix
+      ./lsp.options.nix
       config
     ];
     specialArgs = { inherit pkgs dsl; };
