@@ -26,7 +26,6 @@ in
     cmp-nvim-lsp
     nvim-cmp
     cmp-buffer
-    nvim-lspconfig
     # Lsp autocompletion thing on the right
     lspkind-nvim
     # Snippets
@@ -38,6 +37,8 @@ in
     # Show LSP progress
     fidget-nvim
   ];
+
+  lspconfig.enable = true;
 
   setup.fidget = {
     progress.display.progress_ttl = 3;
@@ -127,53 +128,51 @@ in
     end
   '';
 
-  use.lspconfig.tsserver.setup = callWith {
-    cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" "--tsserver-path" "tsserver" ];
-    filetypes = [ "json" "javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx" ];
-    inherit capabilities;
-  };
+  lspconfig.lsp = {
 
-  use.lspconfig.nil_ls.setup = callWith {
-    cmd = [ (getExe pkgs.nil) ];
-    inherit capabilities;
-    settings = {
-      "['nil']".nix = {
-        maxMemoryMB = 8192;
-        flake.autoArchive = true;
-        flake.autoEvalInputs = true;
+    tsserver = {
+      cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" "--tsserver-path" "tsserver" ];
+      filetypes = [ "json" "javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx" ];
+    };
+
+    nil_ls = {
+      cmd = [ (getExe pkgs.nil) ];
+      on_attach = ''
+        print("Hello world nil_ls")
+      '';
+      settings = {
+        "['nil']".nix = {
+          maxMemoryMB = 8192;
+          flake.autoArchive = true;
+          flake.autoEvalInputs = true;
+        };
       };
     };
-  };
 
-  use.lspconfig.jsonls.setup = callWith {
-    cmd = [ "${pkgs.nodePackages.vscode-json-languageserver}/bin/vscode-json-languageserver" "--stdio" ];
-    inherit capabilities;
-  };
+    jsonls = {
+      cmd = [ "${pkgs.nodePackages.vscode-json-languageserver}/bin/vscode-json-languageserver" "--stdio" ];
+    };
 
-  use.lspconfig.solargraph.setup = callWith {
-    cmd = [ "${pkgs.solargraph}/bin/solargraph" "stdio" ];
-    inherit capabilities;
-  };
+    solargraph = {
+      cmd = [ "${pkgs.solargraph}/bin/solargraph" "stdio" ];
+    };
 
-  use.lspconfig.clangd.setup = callWith {
-    cmd = [ "${pkgs.clang-tools}/bin/clangd" ];
-    inherit capabilities;
-  };
+    clangd = {
+      cmd = [ "${pkgs.clang-tools}/bin/clangd" ];
+    };
 
-  use.lspconfig.gopls.setup = callWith {
-    cmd = [ "${pkgs.gopls}/bin/gopls" ];
-    inherit capabilities;
-  };
+    gopls = {
+      cmd = [ "${pkgs.gopls}/bin/gopls" ];
+    };
 
-  use.lspconfig.pyright.setup = callWith {
-    cmd = [ "${pkgs.pyright}/bin/pyright-langserver" "--stdio" ];
-    inherit capabilities;
-  };
+    pyright = {
+      cmd = [ "${pkgs.pyright}/bin/pyright-langserver" "--stdio" ];
+    };
 
-  use.lspconfig.terraformls.setup = callWith {
-    cmd = [ "${pkgs.terraform-lsp}/bin/terraform-lsp" ];
-    inherit capabilities;
-  };
+    terraformls = {
+      cmd = [ "${pkgs.terraform-lsp}/bin/terraform-lsp" ];
+    };
 
+  };
 
 }

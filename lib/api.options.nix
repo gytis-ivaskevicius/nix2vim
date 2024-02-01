@@ -239,12 +239,6 @@ in
       lua = ''
         ${toString functions}
 
-        local _cmp_nvim_lsp_present, _cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-        local capabilities = nil
-        if present then
-            capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-        end
-
         ${dsl.attrs2Lua { inherit (config) vim; }}
         ${toString require}
         local map = vim.api.nvim_set_keymap
