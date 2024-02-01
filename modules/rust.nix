@@ -55,10 +55,11 @@
     };
   };
 
-  use.lspconfig.rust_analyzer.setup = callWith {
-    cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
-    capabilities = rawLua "capabilities";
-    settings."['rust-analyzer']" = { procMacro.enable = true; };
+  lspconfig.lsp = {
+    rust_analyzer = {
+      cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
+      settings."['rust-analyzer']" = { procMacro.enable = true; };
+    };
   };
 }
 
