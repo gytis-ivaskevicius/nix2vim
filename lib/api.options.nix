@@ -1,10 +1,9 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) replaceStrings mkOption types flatten mapAttrsToList mapAttrs filterAttrs concatStringsSep filter attrValues;
-  mkMappingOption = description: mkOption {
-    inherit description;
-    example = { abc = ":FZF<CR>"; C-p = ":FZF<CR>"; }; # Probably should be overwritten per option basis
+  inherit (lib) replaceStrings mkOption types literalExample flatten mapAttrsToList mapAttrs filterAttrs concatStringsSep filter attrValues;
+  mkMappingOption = description: example: mkOption {
+    inherit description example;
     default = { };
     type = with types; attrsOf (nullOr str);
   };
@@ -33,9 +32,15 @@ in
     };
 
     function = mkOption {
-      example = {
-        abc = "print 'hello world'";
-      };
+      example = literalExample ''
+        {
+          # Gets parsed to:
+          # function abc()
+          #   print 'hello world'
+          # end
+          abc = "print 'hello world'";
+        }
+      '';
       default = { };
       description = "Attribute set representing <function-name> -> <function-body> pairs";
       type = with types; attrsOf str;
@@ -44,12 +49,25 @@ in
     use = mkOption {
       description = ''Allows requiring modules. Gets parset to "require('<name>').<attrs>"'';
       type = with types; attrsOf attrs;
+      example = literalExample ''
+        use.which-key.register = dsl.callWith {
+          q = cmd "bdelete" "Delete buffer";
+        }
+      '';
       default = { };
     };
 
     setup = mkOption {
       description = ''Results in 'require(<name>).setup(<attrs>)'.'';
       type = with types; attrsOf attrs;
+      example = literalExample ''
+        setup.lsp_signature = {
+          bind = true;
+          hint_enable = false;
+          hi_parameter = "Visual";
+          handler_opts.border = "single";
+        };
+      '';
       default = { };
     };
 
@@ -57,43 +75,102 @@ in
       type = types.lines;
       default = "";
       description = "Lua config";
+      example = ''
+        local hooks = require "ibl.hooks"
+        hooks.register(
+          hooks.type.WHITESPACE,
+          hooks.builtin.hide_first_space_indent_level
+        )
+      '';
     };
 
     lua' = mkOption {
       type = types.lines;
       default = "";
       description = "Lua config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering";
+      example = ''
+        local hooks = require "ibl.hooks"
+        hooks.register(
+          hooks.type.WHITESPACE,
+          hooks.builtin.hide_first_space_indent_level
+        )
+      '';
     };
 
     vimscript = mkOption {
       type = types.lines;
       default = "";
+      example = "set number";
       description = "Vimscript config";
     };
 
     vimscript' = mkOption {
       type = types.lines;
       default = "";
-      description = "Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering";
+      example = "set number";
+      description = "Vimscript config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering";
     };
 
-    nnoremap = mkMappingOption "Defines 'Normal mode' mappings";
-    inoremap = mkMappingOption "Defines 'Insert and Replace mode' mappings";
-    vnoremap = mkMappingOption "Defines 'Visual and Select mode' mappings";
-    xnoremap = mkMappingOption "Defines 'Visual mode' mappings";
-    snoremap = mkMappingOption "Defines 'Select mode' mappings";
-    cnoremap = mkMappingOption "Defines 'Command-line mode' mappings";
-    onoremap = mkMappingOption "Defines 'Operator pending mode' mappings";
-    tnoremap = mkMappingOption "Defines 'Terminal mode' mappings";
+    ############################################
+    # Mappings                               ###
+    ############################################
+    nnoremap = mkMappingOption "Defines 'Normal mode' mappings" {
+      "<leader>/" = ":nohl<cr>";
+    };
+    inoremap = mkMappingOption "Defines 'Insert and Replace mode' mappings" {
+      "<C-h>" = "<Left>";
+      "<C-j>" = "<Down>";
+      "<C-k>" = "<Up>";
+      "<C-l>" = "<Right>";
+      "<C-BS>" = "<C-W>";
+    };
+    vnoremap = mkMappingOption "Defines 'Visual and Select mode' mappings" {
+      "<" = "<gv";
+      ">" = ">gv";
+    };
+    xnoremap = mkMappingOption "Defines 'Visual mode' mappings" {
+      "<" = "<gv";
+      ">" = ">gv";
+    };
+    snoremap = mkMappingOption "Defines 'Select mode' mappings" {
+      "<CR>" = "a<BS>";
+    };
+    cnoremap = mkMappingOption "Defines 'Command-line mode' mappings" { RH = "Gitsigns reset_hunk"; };
+    onoremap = mkMappingOption "Defines 'Operator pending mode' mappings" {
+      imma-be-real-with-ya = "I have no idea what for one may use this";
+    };
+    tnoremap = mkMappingOption "Defines 'Terminal mode' mappings" {
+      "<Esc>" = "<C-\><C-n>";
+    };
 
-    nmap = mkMappingOption "Defines 'Normal mode' mappings";
-    imap = mkMappingOption "Defines 'Insert and Replace mode' mappings";
-    vmap = mkMappingOption "Defines 'Visual and Select mode' mappings";
-    xmap = mkMappingOption "Defines 'Visual mode' mappings";
-    smap = mkMappingOption "Defines 'Select mode' mappings";
-    cmap = mkMappingOption "Defines 'Command-line mode' mappings";
-    omap = mkMappingOption "Defines 'Operator pending mode' mappings";
-    tmap = mkMappingOption "Defines 'Terminal mode' mappings";
+    nmap = mkMappingOption "Defines 'Normal mode' mappings" {
+      "<leader>/" = ":nohl<cr>";
+    };
+    imap = mkMappingOption "Defines 'Insert and Replace mode' mappings" {
+      "<C-h>" = "<Left>";
+      "<C-j>" = "<Down>";
+      "<C-k>" = "<Up>";
+      "<C-l>" = "<Right>";
+      "<C-BS>" = "<C-W>";
+    };
+    vmap = mkMappingOption "Defines 'Visual and Select mode' mappings" {
+      "<" = "<gv";
+      ">" = ">gv";
+    };
+    xmap = mkMappingOption "Defines 'Visual mode' mappings" {
+      "<" = "<gv";
+      ">" = ">gv";
+    };
+    smap = mkMappingOption "Defines 'Select mode' mappings" {
+      "<CR>" = "a<BS>";
+    };
+    cmap = mkMappingOption "Defines 'Command-line mode' mappings" { RH = "Gitsigns reset_hunk"; };
+    omap = mkMappingOption "Defines 'Operator pending mode' mappings" {
+      imma-be-real-with-ya = "I have no idea what for one may use this";
+    };
+    tmap = mkMappingOption "Defines 'Terminal mode' mappings" {
+      "<Esc>" = "<C-\><C-n>";
+    };
   };
 
   config =

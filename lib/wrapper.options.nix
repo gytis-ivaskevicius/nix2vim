@@ -17,18 +17,20 @@ in
       type = types.str;
       default = "";
       description = "Should contain all args but the binary. https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh";
-      example = "--set ABC 123";
+      example = literalExpression "\"--set PATH \${pkgs.lib.makeBinPath [pkgs.ripgrep pkgs.fd]}\";";
     };
 
     drvSuffix = mkOption {
       description = "Suffix of generated neovim derivation";
       type = types.str;
       default = "-nix2vim";
+      example = "-my-awesome-neovim-distribution";
     };
 
     package = mkOption {
       type = types.package;
       default = pkgs.neovim-unwrapped;
+      defaultText = "pkgs.neovim-unwrapped";
       example = literalExpression "pkgs.neovim-unwrapped";
       description = "Neovim package to use.";
     };
@@ -37,11 +39,13 @@ in
       type = types.package;
       description = "This option contains the store path that represents neovim.";
       readOnly = true;
+      visible = false;
     };
 
     extraPython3Packages = mkOption {
       type = types.functionTo (types.listOf types.package);
       default = _: [ ];
+      defaultText = "_: [ ]";
       description = "The function you would have passed to python.withPackages";
       example = literalExpression ''
         it: [ it.requests ]
@@ -51,6 +55,7 @@ in
     extraLuaPackages = mkOption {
       type = types.functionTo (types.listOf types.package);
       default = _: [ ];
+      defaultText = "_: [ ]";
       description = "The function you would have passed to lua.withPackages";
       example = literalExpression ''
         it: [ it.cjson ]
