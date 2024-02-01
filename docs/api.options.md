@@ -10,8 +10,7 @@ Defines 'Command-line mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  RH = "Gitsigns reset_hunk";
 }
 ```
 
@@ -28,8 +27,7 @@ Defines 'Command-line mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  RH = "Gitsigns reset_hunk";
 }
 ```
 
@@ -46,8 +44,13 @@ Attribute set representing <function-name> -> <function-body> pairs
 **Example:**
 ```nix
 {
+  # Gets parsed to:
+  # function abc()
+  #   print 'hello world'
+  # end
   abc = "print 'hello world'";
 }
+
 ```
 
 
@@ -63,8 +66,11 @@ Defines 'Insert and Replace mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<C-BS>" = "<C-W>";
+  "<C-h>" = "<Left>";
+  "<C-j>" = "<Down>";
+  "<C-k>" = "<Up>";
+  "<C-l>" = "<Right>";
 }
 ```
 
@@ -81,8 +87,11 @@ Defines 'Insert and Replace mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<C-BS>" = "<C-W>";
+  "<C-h>" = "<Left>";
+  "<C-j>" = "<Down>";
+  "<C-k>" = "<Up>";
+  "<C-l>" = "<Right>";
 }
 ```
 
@@ -98,7 +107,13 @@ Lua config
 
 **Example:**
 ```nix
-
+''
+  local hooks = require "ibl.hooks"
+  hooks.register(
+    hooks.type.WHITESPACE,
+    hooks.builtin.hide_first_space_indent_level
+  )
+''
 ```
 
 
@@ -113,7 +128,13 @@ Lua config which is placed after `lua` script. Unfortunatelly sometimes config r
 
 **Example:**
 ```nix
-
+''
+  local hooks = require "ibl.hooks"
+  hooks.register(
+    hooks.type.WHITESPACE,
+    hooks.builtin.hide_first_space_indent_level
+  )
+''
 ```
 
 
@@ -129,8 +150,7 @@ Defines 'Normal mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<leader>/" = ":nohl<cr>";
 }
 ```
 
@@ -147,8 +167,7 @@ Defines 'Normal mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<leader>/" = ":nohl<cr>";
 }
 ```
 
@@ -165,8 +184,7 @@ Defines 'Operator pending mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  imma-be-real-with-ya = "I have no idea what for one may use this";
 }
 ```
 
@@ -183,8 +201,7 @@ Defines 'Operator pending mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  imma-be-real-with-ya = "I have no idea what for one may use this";
 }
 ```
 
@@ -220,6 +237,12 @@ Results in 'require(<name>).setup(<attrs>)'.
 
 **Example:**
 ```nix
+setup.lsp_signature = {
+  bind = true;
+  hint_enable = false;
+  hi_parameter = "Visual";
+  handler_opts.border = "single";
+};
 
 ```
 
@@ -236,8 +259,7 @@ Defines 'Select mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<CR>" = "a<BS>";
 }
 ```
 
@@ -254,8 +276,7 @@ Defines 'Select mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<CR>" = "a<BS>";
 }
 ```
 
@@ -272,8 +293,7 @@ Defines 'Terminal mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<Esc>" = "<C-><C-n>";
 }
 ```
 
@@ -290,8 +310,7 @@ Defines 'Terminal mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<Esc>" = "<C-><C-n>";
 }
 ```
 
@@ -307,6 +326,9 @@ Allows requiring modules. Gets parset to "require('<name>').<attrs>"
 
 **Example:**
 ```nix
+use.which-key.register = dsl.callWith {
+  q = cmd "bdelete" "Delete buffer";
+}
 
 ```
 
@@ -344,13 +366,13 @@ Vimscript config
 
 **Example:**
 ```nix
-
+"set number"
 ```
 
 
 ## vimscript'
 
-Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering
+Vimscript config which is placed after `lua` script. Unfortunatelly sometimes config requires certain ordering
 
 
 **Type:** strings concatenated with "\n"
@@ -359,7 +381,7 @@ Vimscript  config which is placed after `lua` script. Unfortunatelly sometimes c
 
 **Example:**
 ```nix
-
+"set number"
 ```
 
 
@@ -375,8 +397,8 @@ Defines 'Visual and Select mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<" = "<gv";
+  ">" = ">gv";
 }
 ```
 
@@ -393,8 +415,8 @@ Defines 'Visual and Select mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<" = "<gv";
+  ">" = ">gv";
 }
 ```
 
@@ -411,8 +433,8 @@ Defines 'Visual mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<" = "<gv";
+  ">" = ">gv";
 }
 ```
 
@@ -429,7 +451,7 @@ Defines 'Visual mode' mappings
 **Example:**
 ```nix
 {
-  C-p = ":FZF<CR>";
-  abc = ":FZF<CR>";
+  "<" = "<gv";
+  ">" = ">gv";
 }
 ```
