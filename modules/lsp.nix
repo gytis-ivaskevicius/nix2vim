@@ -131,15 +131,11 @@ in
   lspconfig.lsp = {
 
     tsserver = {
-      cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" "--tsserver-path" "tsserver" ];
-      filetypes = [ "json" "javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx" ];
+      cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
     };
 
     nil_ls = {
       cmd = [ (getExe pkgs.nil) ];
-      on_attach = ''
-        print("Hello world nil_ls")
-      '';
       settings = {
         "['nil']".nix = {
           maxMemoryMB = 8192;
