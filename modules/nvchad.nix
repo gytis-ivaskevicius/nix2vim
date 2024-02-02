@@ -1,6 +1,10 @@
-{ pkgs, lib, dsl, ... }:
+{ pkgs,  dsl, ... }:
 let
   inherit (dsl) callWith;
+  nvchad-ui-config = pkgs.runCommand "nvchad-utils" {} ''
+    mkdir -p $out/lua/core
+    cp ${./nvchad-ui-config.lua} $out/lua/core/utils.lua
+  '';
 in
 {
   plugins = with pkgs.vimPlugins; [
@@ -10,6 +14,7 @@ in
     nvim-colorizer-lua
     nvim-web-devicons
     plenary-nvim
+    nvchad-ui-config
   ];
 
   vim.g = {
