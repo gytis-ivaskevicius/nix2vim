@@ -139,8 +139,9 @@ in
       settings = {
         "['nil']".nix = {
           maxMemoryMB = 8192;
-          flake.autoArchive = true;
-          flake.autoEvalInputs = true;
+          #flake.autoArchive = true;
+          # Crashes if flake has inputs with invalid outputs
+          #flake.autoEvalInputs = true;
         };
       };
     };
