@@ -134,17 +134,21 @@ in
       cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
     };
 
-    nil_ls = {
-      cmd = [ (getExe pkgs.nil) ];
-      settings = {
-        "['nil']".nix = {
-          maxMemoryMB = 8192;
-          #flake.autoArchive = true;
-          # Crashes if flake has inputs with invalid outputs
-          #flake.autoEvalInputs = true;
-        };
-      };
+    rnix = {
+      cmd = [ (getExe pkgs.rnix-lsp) ];
     };
+
+    # nil_ls = {
+    #   cmd = [ (getExe pkgs.nil) ];
+    #   settings = {
+    #     "['nil']".nix = {
+    #       maxMemoryMB = 8192;
+    #       #flake.autoArchive = true;
+    #       # Crashes if flake has inputs with invalid outputs
+    #       #flake.autoEvalInputs = true;
+    #     };
+    #   };
+    # };
 
     jsonls = {
       cmd = [ "${pkgs.nodePackages.vscode-json-languageserver}/bin/vscode-json-languageserver" "--stdio" ];
