@@ -134,9 +134,10 @@ in
       cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
     };
 
-    rnix = {
-      cmd = [ (getExe pkgs.rnix-lsp) ];
-    };
+    # No longer in nixpkgs since it is unmaintained
+    # rnix = {
+    #   cmd = [ (getExe pkgs.rnix-lsp) ];
+    # };
 
     # nil_ls = {
     #   cmd = [ (getExe pkgs.nil) ];
