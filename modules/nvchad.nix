@@ -3,7 +3,7 @@ let
   inherit (dsl) callWith;
   nvchad-ui-config = pkgs.runCommand "nvchad-utils" {} ''
     mkdir -p $out/lua/core
-    cp ${./nvchad-ui-config.lua} $out/lua/core/utils.lua
+    cp ${./nvconfig.lua} $out/lua/nvconfig.lua
   '';
 in
 {
