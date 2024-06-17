@@ -8,6 +8,7 @@
     comment-nvim
     rainbow-delimiters-nvim
     vim-matchup
+    pkgs.tree-sitter.builtGrammars.tree-sitter-just
   ];
 
 

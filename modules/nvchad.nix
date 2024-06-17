@@ -1,7 +1,7 @@
-{ pkgs,  dsl, ... }:
+{ pkgs, dsl, ... }:
 let
   inherit (dsl) callWith;
-  nvchad-ui-config = pkgs.runCommand "nvchad-utils" {} ''
+  nvchad-ui-config = pkgs.runCommand "nvchad-utils" { } ''
     mkdir -p $out/lua/core
     cp ${./nvconfig.lua} $out/lua/nvconfig.lua
   '';
