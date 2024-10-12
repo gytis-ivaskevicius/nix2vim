@@ -20,8 +20,6 @@ in
   ];
 
   plugins = with pkgs.vimPlugins; [
-    # Utility functions for lsp
-    plenary-nvim
     # Completion
     cmp-nvim-lsp
     nvim-cmp
@@ -131,7 +129,7 @@ in
 
   lspconfig.lsp = {
 
-    tsserver = {
+    ts_ls = {
       cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
     };
 

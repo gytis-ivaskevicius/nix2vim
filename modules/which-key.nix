@@ -2,12 +2,21 @@
 let
   cmd = command: desc: [ "<cmd>${command}<cr>" desc ];
   cmdLua = command: (cmd "lua ${command}");
+  which-key = pkgs.vimUtils.buildVimPlugin {
+    name = "which-key";
+    src = pkgs.fetchFromGitHub {
+      owner = "folke";
+      repo = "which-key.nvim";
+      rev = "v2.1.0";
+      sha256 = "sha256-gc/WJJ1s4s+hh8Mx8MTDg8pGGNOXxgKqBMwudJtpO4Y=";
+    };
+  };
 in
 {
 
   plugins = with pkgs.vimPlugins; [
     # command discover
-    which-key-nvim
+    which-key
   ];
 
   vimscript = ''
@@ -15,7 +24,7 @@ in
   '';
 
   setup.which-key = {
-    window.padding = [ 1 1 1 1 ];
+    win.padding = [ 1 1 1 1 ];
     layout = {
       height.max = 40;
       width.max = 70;

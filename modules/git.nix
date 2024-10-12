@@ -4,7 +4,6 @@
     diffview-nvim
     gitsigns-nvim
     neogit
-    plenary-nvim
   ];
 
   setup.gitsigns = { };
