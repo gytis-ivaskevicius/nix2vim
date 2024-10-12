@@ -1,10 +1,6 @@
 { pkgs, dsl, ... }:
 let
   inherit (dsl) callWith;
-  nvchad-ui-config = pkgs.runCommand "nvchad-utils" { } ''
-    mkdir -p $out/lua/core
-    cp ${./nvconfig.lua} $out/lua/nvconfig.lua
-  '';
 in
 {
   plugins = with pkgs.vimPlugins; [
@@ -14,7 +10,6 @@ in
     nvim-colorizer-lua
     nvim-web-devicons
     plenary-nvim
-    nvchad-ui-config
   ];
 
   vim.g = {
@@ -40,6 +35,10 @@ in
 
   lua = ''
     vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
+
+    require "nvchad"
+    dofile(vim.g.base46_cache .. "defaults")
+    dofile(vim.g.base46_cache .. "statusline")
 
     local hooks = require "ibl.hooks"
     hooks.register(
