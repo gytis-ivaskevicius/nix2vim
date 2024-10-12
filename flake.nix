@@ -29,6 +29,7 @@
             ./modules/treesitter.nix
             ./modules/telescope.nix
             ./modules/which-key.nix
+            ./modules/ai.nix
           ];
 
           enableViAlias = true;
@@ -50,6 +51,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
+          config.allowUnfree = true;
           overlays = [ overlay ];
         };
       in
