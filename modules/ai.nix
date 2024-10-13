@@ -1,8 +1,7 @@
-{
-  pkgs,
-  lib,
-  dsl,
-  ...
+{ pkgs
+, lib
+, dsl
+, ...
 }:
 let
 
@@ -24,25 +23,43 @@ let
       sha256 = "sha256-mUThyaEy3Vtv0YgbIyjY+6sJHfMz80nBooTWxQe3xlM=";
     };
   };
+  avante = pkgs.vimPlugins.avante-nvim.overrideAttrs (_: {
+    src = pkgs.fetchFromGitHub {
+      owner = "yetone";
+      repo = "avante.nvim";
+      rev = "347d9be730546d3cb55ed32b972fa597aa9b436f";
+      sha256 = "sha256-wlqLxYB6QjFOf81/OjW6fg4xsAnueu+6qUmwkvMMk90=";
+    };
+  });
 in
 {
   plugins = with pkgs.vimPlugins; [
     codeium
     nui-nvim
     codegpt
+    avante
+    dressing-nvim
   ];
 
   setup.codeium = {
     language_server = "${pkgs.codeium}/bin/codeium_language_server";
   };
 
-  use.codegpt = {
-    max_tokens = 128000;
+  setup.avante = {
+    provider = "openai";
+    behaviour.auto_apply_diff_after_generation = true;
   };
+
+  use.codegpt = { };
 
   vim.g.codegpt_global_commands_defaults = dsl.toTable {
     model = "gpt-4o";
+    max_tokens = 16384;
   };
+
+  lua' = ''
+    require('avante_lib').load()
+  '';
 
   vim.g.codegpt_commands = dsl.toTable {
     "['code_edit']".language_instructions = {
