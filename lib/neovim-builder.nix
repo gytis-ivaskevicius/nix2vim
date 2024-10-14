@@ -15,15 +15,15 @@ let
     specialArgs = {
       inherit pkgs dsl;
       modules = {
-        ai = ./modules/ai.nix;
-        essentials = ./modules/essentials.nix;
-        git = ./modules/git.nix;
-        lsp = ./modules/lsp.nix;
-        nvchad = ./modules/nvchad.nix;
-        nvim-tree = ./modules/nvim-tree.nix;
-        telescope = ./modules/telescope.nix;
-        treesitter = ./modules/treesitter.nix;
-        which-key = ./modules/which-key.nix;
+        ai = ../modules/ai.nix;
+        essentials = ../modules/essentials.nix;
+        git = ../modules/git.nix;
+        lsp = ../modules/lsp.nix;
+        nvchad = ../modules/nvchad.nix;
+        nvim-tree = ../modules/nvim-tree.nix;
+        telescope = ../modules/telescope.nix;
+        treesitter = ../modules/treesitter.nix;
+        which-key = ../modules/which-key.nix;
       };
     };
   };
