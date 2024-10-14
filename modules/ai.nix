@@ -47,7 +47,6 @@ in
 
   setup.avante = {
     provider = "openai";
-    behaviour.auto_apply_diff_after_generation = true;
   };
 
   use.avante_lib.load = dsl.callWith null;
