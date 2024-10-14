@@ -50,6 +50,8 @@ in
     behaviour.auto_apply_diff_after_generation = true;
   };
 
+  use.avante_lib.load = dsl.callWith null;
+
   use.codegpt = { };
 
   vim.g.codegpt_global_commands_defaults = dsl.toTable {
@@ -57,9 +59,6 @@ in
     max_tokens = 16384;
   };
 
-  lua' = ''
-    require('avante_lib').load()
-  '';
 
   vim.g.codegpt_commands = dsl.toTable {
     "['code_edit']".language_instructions = {
