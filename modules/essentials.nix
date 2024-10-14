@@ -31,6 +31,9 @@
     wildignore = "*/tmp/*,*.so,*.swp,*.pyc,*.db,*.sqlite,*.class,*/node_modules/*,*/.git/*";
     wildmode = "list:longest,list:full";
     wrap = false;
+    tabstop = 2;
+    shiftwidth = 2;
+    expandtab = true;
   };
 
   vim.g = {
@@ -38,6 +41,7 @@
     completeopt = "menu,menuone,noselect";
   };
 
+  #cmap.messagescp = ":let @+=execute('messages')<CR>";
   # Clear highlight
   nmap."<leader>/" = ":nohl<cr>";
 
