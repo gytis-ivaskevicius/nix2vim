@@ -1,5 +1,15 @@
 { lib, pkgs, dsl, ... }:
-
+let
+  nvim-treesitter-pairs = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-treesitter-pairs";
+    src = pkgs.fetchFromGitHub {
+      owner = "theHamsta";
+      repo = "nvim-treesitter-pairs";
+      rev = "f8c195d4d8464cba6971bf8de2d6a5c8c109b37a";
+      sha256 = "sha256-VHq7ohBDThkBwqUIEVBb4RujBkftu96DQe/y6l7egzM=";
+    };
+  };
+in
 {
   plugins = with pkgs.vimPlugins; [
     nvim-treesitter-context
@@ -7,10 +17,9 @@
     nvim-ts-context-commentstring
     comment-nvim
     rainbow-delimiters-nvim
-    vim-matchup
+    nvim-treesitter-pairs
     pkgs.tree-sitter.builtGrammars.tree-sitter-just
   ];
-
 
   setup.treesitter-context = {
     max_lines = 4;
@@ -28,6 +37,10 @@
 
   treesitter.enable = true;
   treesitter.options = {
+    pairs = {
+      enable = true;
+      keymaps.goto_partner = "%";
+    };
     highlight = {
       enable = true;
       use_languagetree = true;
