@@ -106,7 +106,7 @@ in
     };
     sources = [
       { name = "nvim_lsp"; }
-      #{ name = "codeium"; }
+      { name = "codeium"; }
       { name = "luasnip"; }
       { name = "buffer"; }
       { name = "crates"; }
