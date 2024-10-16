@@ -1,7 +1,7 @@
 { pkgs, lib }:
 
 with lib;
-{ ... }@config:
+config:
 let
   dsl = import ./dsl.nix { inherit lib; };
   result = evalModules {
