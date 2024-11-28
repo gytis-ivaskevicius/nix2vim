@@ -16,12 +16,7 @@ let
   };
   codegpt = pkgs.vimUtils.buildVimPlugin {
     name = "codegpt";
-    src = pkgs.fetchFromGitHub {
-      owner = "dpayne";
-      repo = "CodeGPT.nvim";
-      rev = "9d0a58a0bdc858f2e9729b8b5ac8b994c3453c8f";
-      sha256 = "sha256-mUThyaEy3Vtv0YgbIyjY+6sJHfMz80nBooTWxQe3xlM=";
-    };
+    src = ./codegpt;
   };
   avante = pkgs.vimPlugins.avante-nvim.overrideAttrs (_: {
     src = pkgs.fetchFromGitHub {
