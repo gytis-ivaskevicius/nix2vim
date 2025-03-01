@@ -17,7 +17,6 @@ in
     nvim-ts-context-commentstring
     comment-nvim
     rainbow-delimiters-nvim
-    nvim-treesitter-pairs
     pkgs.tree-sitter.builtGrammars.tree-sitter-just
   ];
 
@@ -37,10 +36,6 @@ in
 
   treesitter.enable = true;
   treesitter.options = {
-    pairs = {
-      enable = true;
-      keymaps.goto_partner = "%";
-    };
     highlight = {
       enable = true;
       use_languagetree = true;

@@ -5,34 +5,26 @@
 }:
 let
 
-  codeium = pkgs.vimUtils.buildVimPlugin {
-    name = "codeium";
-    src = pkgs.fetchFromGitHub {
-      owner = "Exafunction";
-      repo = "codeium.nvim";
-      rev = "ca38490ef963b066d6f686146d73213c70ef7f6b";
-      sha256 = "sha256-fsqtdu4ilQ9mYb/BJT4nhqzvCGnrkWnVF9QQRNFdQHk=";
-    };
-  };
   codegpt = pkgs.vimUtils.buildVimPlugin {
-    name = "codegpt";
-    src = ./codegpt;
-  };
-  avante = pkgs.vimPlugins.avante-nvim.overrideAttrs (_: {
+    name = "CodeGPT.nvim";
     src = pkgs.fetchFromGitHub {
-      owner = "yetone";
-      repo = "avante.nvim";
-      rev = "347d9be730546d3cb55ed32b972fa597aa9b436f";
-      sha256 = "sha256-wlqLxYB6QjFOf81/OjW6fg4xsAnueu+6qUmwkvMMk90=";
+      owner = "harjotgill";
+      repo = "CodeGPT.nvim";
+      rev = "cdabcf06e8055b1816e2c3b3d56d500501cfaabe";
+      sha256 = "sha256-mUThyaEy3Vtv0YgbIyjY+6sJHfMz80nBooTWxQe3xlM=";
     };
-  });
+    doCheck = false;
+  };
 in
 {
   plugins = with pkgs.vimPlugins; [
-    codeium
+    codeium-nvim
     nui-nvim
+    #copilot-vim
+    #CopilotChat-nvim
     codegpt
-    avante
+    avante-nvim
+    img-clip-nvim
     dressing-nvim
   ];
 
@@ -42,7 +34,10 @@ in
 
   setup.avante = {
     provider = "openai";
+    openai.model = "gpt-4o";
+    rag_service.enabled = true;
   };
+  #setup.CopilotChat = {};
 
   use.avante_lib.load = dsl.callWith null;
 

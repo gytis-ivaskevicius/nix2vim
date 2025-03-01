@@ -64,7 +64,6 @@ in
 
       "['<leader>']" = [ "<cmd>Telescope find_files<cr>" "search files" ];
       bb = cmd "Telescope buffers" "Get buffer list";
-      fb = cmd "Telescope file_browser" "Get buffer list";
       gf = cmd "lua require('telescope.builtins').live_grep {default_text='function'}" "grep for functions only";
       gg = cmd "Telescope live_grep" "Fzf fuzzy search";
       l = cmd "Telescope resume" "last telescope query";
