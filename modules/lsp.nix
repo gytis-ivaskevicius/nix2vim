@@ -174,6 +174,10 @@ in
       cmd = [ "${pkgs.terraform-lsp}/bin/terraform-lsp" ];
     };
 
+    tailwindcss = {
+      cmd = [ "${pkgs.tailwindcss-language-server}/bin/tailwindcss-language-server" "--stdio" ];
+    };
+
   };
 
 }
