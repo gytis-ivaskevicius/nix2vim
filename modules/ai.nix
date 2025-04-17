@@ -18,7 +18,7 @@ let
 in
 {
   plugins = with pkgs.vimPlugins; [
-    codeium-nvim
+    windsurf-nvim
     nui-nvim
     #copilot-vim
     #CopilotChat-nvim
