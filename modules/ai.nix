@@ -34,19 +34,19 @@ in
 
   setup.avante = {
     provider = "openai";
-    openai.model = "gpt-4o-mini";
-    rag_service.enabled = true;
+    openai.model = "gpt-4.1-nano";
+    #rag_service.enabled = true;
   };
   #setup.CopilotChat = {};
 
   use.avante_lib.load = dsl.callWith null;
 
   use.codegpt = {
-    model = "gpt-4o-mini";
+    model = "gpt-4.1-nano";
   };
 
   vim.g.codegpt_global_commands_defaults = dsl.toTable {
-    model = "gpt-4o";
+    model = "gpt-4.1-nano";
     max_tokens = 16384;
   };
 
