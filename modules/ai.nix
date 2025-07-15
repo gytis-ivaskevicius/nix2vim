@@ -34,7 +34,7 @@ in
 
   setup.avante = {
     provider = "openai";
-    openai.model = "gpt-4.1-nano";
+    providers.openai.model = "gpt-4.1-nano";
     #rag_service.enabled = true;
   };
   #setup.CopilotChat = {};
