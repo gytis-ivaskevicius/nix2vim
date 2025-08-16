@@ -138,6 +138,18 @@ in
     #   cmd = [ (getExe pkgs.rnix-lsp) ];
     # };
 
+    denols = {
+      cmd = [ (getExe pkgs.deno) "lsp" ];
+      enable = true;
+      suggest = {
+        imports = {
+          hosts = {
+            "['https://deno.land']" = true;
+          };
+        };
+      };
+    };
+
     nil_ls = {
       cmd = [ (getExe pkgs.nil) ];
       settings = {
