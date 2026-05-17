@@ -1,7 +1,7 @@
 { lib, pkgs, dsl, config, ... }:
 
 let
-  inherit (lib) mkIf types mkOption mkEnableOption mdDoc literalExpression;
+  inherit (lib) mkIf types mkOption mkEnableOption literalExpression;
   cfg = config.treesitter;
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
@@ -11,13 +11,13 @@ in
 {
 
   options.treesitter = {
-    enable = mkEnableOption (mdDoc "Treesitter");
+    enable = mkEnableOption "Treesitter";
 
     package = mkOption {
       type = types.package;
       default = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
       defaultText = literalExpression "pkgs.vimPlugins.nvim-treesitter.withAllGrammars";
-      description = lib.mdDoc "nvim-treesitter plugin to use. May be configured with different grammars";
+      description = "nvim-treesitter plugin to use. May be configured with different grammars";
       example = literalExpression ''
         (pkgs.vimPlugins.nvim-treesitter.withPlugins (grammars: with grammars; [
           tree-sitter-bash
@@ -43,7 +43,7 @@ in
     options = mkOption {
       type = types.anything;
       default = { };
-      description = lib.mdDoc "nvim-treesitter setup options";
+      description = "nvim-treesitter setup options";
       example = literalExpression ''
         {
           highlight = {
