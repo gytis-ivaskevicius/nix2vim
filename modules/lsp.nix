@@ -131,6 +131,8 @@ in
 
     ts_ls = {
       cmd = [ (getExe pkgs.typescript-language-server) "--stdio" ];
+      root_dir = dsl.rawLua "require('lspconfig.util').root_pattern('package.json', 'tsconfig.json', 'jsconfig.json')";
+      single_file_support = false;
     };
 
     # No longer in nixpkgs since it is unmaintained
@@ -140,7 +142,7 @@ in
 
     denols = {
       cmd = [ (getExe pkgs.deno) "lsp" ];
-      enable = true;
+      root_dir = dsl.rawLua "require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')";
       suggest = {
         imports = {
           hosts = {
