@@ -130,7 +130,7 @@ in
   lspconfig.lsp = {
 
     ts_ls = {
-      cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
+      cmd = [ (getExe pkgs.typescript-language-server) "--stdio" ];
     };
 
     # No longer in nixpkgs since it is unmaintained
@@ -163,7 +163,7 @@ in
     };
 
     jsonls = {
-      cmd = [ "${pkgs.nodePackages.vscode-json-languageserver}/bin/vscode-json-languageserver" "--stdio" ];
+      cmd = [ "${pkgs.vscode-langservers-extracted}/bin/vscode-json-language-server" "--stdio" ];
     };
 
     solargraph = {

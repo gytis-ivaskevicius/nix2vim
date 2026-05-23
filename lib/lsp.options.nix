@@ -42,7 +42,7 @@ in
       '';
       example = literalExpression ''
         tsserver = {
-          cmd = [ (lib.getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
+          cmd = [ (lib.getExe pkgs.typescript-language-server) "--stdio" ];
           filetypes = [ "json" "javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx" ];
           on_attach = '''
             print("Hello world from your LSP!!!")
