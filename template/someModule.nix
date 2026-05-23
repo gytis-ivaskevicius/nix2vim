@@ -1,3 +1,9 @@
-{ pkgs, lib, dsl, ... }: {
+{
+  pkgs,
+  lib,
+  dsl,
+  ...
+}:
+{
   set.number = true;
 }

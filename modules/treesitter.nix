@@ -1,4 +1,9 @@
-{ lib, pkgs, dsl, ... }:
+{
+  lib,
+  pkgs,
+  dsl,
+  ...
+}:
 let
   nvim-treesitter-pairs = pkgs.vimUtils.buildVimPlugin {
     name = "nvim-treesitter-pairs";
@@ -57,7 +62,15 @@ in
       disable = [ ];
       extended_mode = true;
       max_file_lines = 10000;
-      colors = [ "#bd93f9" "#6272a4" "#8be9fd" "#50fa7b" "#f1fa8c" "#ffb86c" "#ff5555" ];
+      colors = [
+        "#bd93f9"
+        "#6272a4"
+        "#8be9fd"
+        "#50fa7b"
+        "#f1fa8c"
+        "#ffb86c"
+        "#ff5555"
+      ];
     };
     textobjects = {
       select = {

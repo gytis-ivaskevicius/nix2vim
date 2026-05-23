@@ -1,4 +1,6 @@
-{ pkgs, dsl, ... }: with dsl; {
+{ pkgs, dsl, ... }:
+with dsl;
+{
 
   plugins = with pkgs.vimPlugins; [
     #rust-tools-nvim
@@ -58,8 +60,9 @@
   lspconfig.lsp = {
     rust_analyzer = {
       cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
-      settings."['rust-analyzer']" = { procMacro.enable = true; };
+      settings."['rust-analyzer']" = {
+        procMacro.enable = true;
+      };
     };
   };
 }
-

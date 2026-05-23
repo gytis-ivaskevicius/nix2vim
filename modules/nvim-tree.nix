@@ -1,13 +1,12 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   plugins = with pkgs.vimPlugins; [ nvim-tree-lua ];
 
   setup.nvim-tree = {
     disable_netrw = true;
     hijack_netrw = true;
-    open_on_tab = false;
     hijack_cursor = false;
-    update_cwd = false;
     diagnostics = {
       enable = false;
       icons = {
@@ -19,12 +18,7 @@
     };
     update_focused_file = {
       enable = false;
-      update_cwd = false;
       ignore_list = { };
-    };
-    system_open = {
-      cmd = null;
-      args = { };
     };
     filters = {
       dotfiles = false;

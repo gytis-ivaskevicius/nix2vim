@@ -1,6 +1,15 @@
-{ pkgs, lib, dsl, ... }: with dsl;
+{
+  pkgs,
+  lib,
+  dsl,
+  ...
+}:
+with dsl;
 let
-  cmd = command: desc: [ "<cmd>${command}<cr>" desc ];
+  cmd = command: desc: [
+    "<cmd>${command}<cr>"
+    desc
+  ];
   cmdLua = command: (cmd "lua ${command}");
   which-key = pkgs.vimUtils.buildVimPlugin {
     name = "which-key";
@@ -24,7 +33,12 @@ in
   '';
 
   setup.which-key = {
-    win.padding = [ 1 1 1 1 ];
+    win.padding = [
+      1
+      1
+      1
+      1
+    ];
     layout = {
       height.max = 40;
       width.max = 70;
@@ -62,7 +76,10 @@ in
       dp = cmdLua "vim.diagnostic.goto_prev()" "prev diag";
       f = cmdLua "vim.lsp.buf.formatting()" "Format buffer";
 
-      "['<leader>']" = [ "<cmd>Telescope find_files<cr>" "search files" ];
+      "['<leader>']" = [
+        "<cmd>Telescope find_files<cr>"
+        "search files"
+      ];
       bb = cmd "Telescope buffers" "Get buffer list";
       gf = cmd "lua require('telescope.builtins').live_grep {default_text='function'}" "grep for functions only";
       gg = cmd "Telescope live_grep" "Fzf fuzzy search";
@@ -75,8 +92,6 @@ in
       ws = cmd "sp" "Split window horizontally";
       wv = cmd "vs" "Split window vertically";
 
-
-
       c = {
         name = "Crates";
         U = cmdLua "require('crates').upgrade_crate()" "upgrade a crate";
@@ -85,13 +100,10 @@ in
         ua = cmdLua "require('crates').update_all_crates()" "update all crates";
       };
 
-
       rJ = cmdLua "require'rust-tools.join_lines'.join_lines()" "Join lines rust";
       rh = cmdLua "require('rust-tools.inlay_hints').toggle_inlay_hints()" "Toggle inlay type hints";
       rm = cmdLua "require'rust-tools.expand_macro'.expand_macro()" "Expand macro";
       rpm = cmdLua "require'rust-tools.parent_module'.parent_module()" "Go to parent module";
-
-
 
     };
   };

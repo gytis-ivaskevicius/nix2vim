@@ -9,7 +9,8 @@ let
     "" = name: it: "${name} = ${nix2lua it}";
     rawLua = name: it: "${name} = ${it}";
     table = name: it: "${name} = ${nix2lua it}";
-    callWith = name: it:
+    callWith =
+      name: it:
       let
         value =
           if isAttrs it then
@@ -22,16 +23,19 @@ let
       "${name}(${value})";
   };
 
-  flatAttrs2Lua = flattened:
-    foldl'
-      (sum: name:
-        let it = flattened.${name}; in
-        sum + typeConverters.${it.subtype or ""} name (it.content or it) + "\n"
-      )
-      ""
-      (attrNames flattened);
+  flatAttrs2Lua =
+    flattened:
+    foldl' (
+      sum: name:
+      let
+        it = flattened.${name};
+      in
+      sum + typeConverters.${it.subtype or ""} name (it.content or it) + "
+"
+    ) "" (attrNames flattened);
 
-  nix2lua = args:
+  nix2lua =
+    args:
     if (args.type or null) == nix2vim then
       let
         subtypes = {
@@ -49,7 +53,8 @@ let
     else
       toJSON args;
 
-  op = sum: path: val:
+  op =
+    sum: path: val:
     let
       isCustomValue = val ? type && (val.type == nix2vim || val.type == "derivation");
       pathStr = concatStringsSep "." path;
@@ -61,11 +66,9 @@ let
     else
       (recurse sum path val);
 
-  recurse = sum: path: val:
-    foldl'
-      (sum: key: op sum (path ++ [ key ]) val.${key})
-      sum
-      (builtins.attrNames val);
+  recurse =
+    sum: path: val:
+    foldl' (sum: key: op sum (path ++ [ key ]) val.${key}) sum (builtins.attrNames val);
 
   mkCustomType = subtype: content: {
     inherit subtype content;

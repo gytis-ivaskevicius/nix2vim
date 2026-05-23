@@ -1,4 +1,6 @@
-{ pkgs, dsl, ... }: with dsl;{
+{ pkgs, dsl, ... }:
+with dsl;
+{
 
   plugins = with pkgs.vimPlugins; [
     surround-nvim

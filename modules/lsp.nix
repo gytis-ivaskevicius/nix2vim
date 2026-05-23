@@ -1,16 +1,46 @@
-{ pkgs, lib, dsl, ... }: with dsl;
+{
+  pkgs,
+  lib,
+  dsl,
+  ...
+}:
+with dsl;
 let
   inherit (lib) getExe;
   capabilities = rawLua "capabilities";
   border = highlightName: [
-    [ "╭" highlightName ]
-    [ "─" highlightName ]
-    [ "╮" highlightName ]
-    [ "│" highlightName ]
-    [ "╯" highlightName ]
-    [ "─" highlightName ]
-    [ "╰" highlightName ]
-    [ "│" highlightName ]
+    [
+      "╭"
+      highlightName
+    ]
+    [
+      "─"
+      highlightName
+    ]
+    [
+      "╮"
+      highlightName
+    ]
+    [
+      "│"
+      highlightName
+    ]
+    [
+      "╯"
+      highlightName
+    ]
+    [
+      "─"
+      highlightName
+    ]
+    [
+      "╰"
+      highlightName
+    ]
+    [
+      "│"
+      highlightName
+    ]
   ];
 in
 {
@@ -130,7 +160,12 @@ in
   lspconfig.lsp = {
 
     ts_ls = {
-      cmd = [ (getExe pkgs.nodePackages.typescript-language-server) "--stdio" ];
+      cmd = [
+        (getExe pkgs.typescript-language-server)
+        "--stdio"
+      ];
+      root_dir = dsl.rawLua "require('lspconfig.util').root_pattern('package.json', 'tsconfig.json', 'jsconfig.json')";
+      single_file_support = false;
     };
 
     # No longer in nixpkgs since it is unmaintained
@@ -139,8 +174,11 @@ in
     # };
 
     denols = {
-      cmd = [ (getExe pkgs.deno) "lsp" ];
-      enable = true;
+      cmd = [
+        (getExe pkgs.deno)
+        "lsp"
+      ];
+      root_dir = dsl.rawLua "require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')";
       suggest = {
         imports = {
           hosts = {
@@ -163,11 +201,17 @@ in
     };
 
     jsonls = {
-      cmd = [ "${pkgs.nodePackages.vscode-json-languageserver}/bin/vscode-json-languageserver" "--stdio" ];
+      cmd = [
+        "${pkgs.vscode-langservers-extracted}/bin/vscode-json-language-server"
+        "--stdio"
+      ];
     };
 
     solargraph = {
-      cmd = [ "${pkgs.solargraph}/bin/solargraph" "stdio" ];
+      cmd = [
+        "${pkgs.solargraph}/bin/solargraph"
+        "stdio"
+      ];
     };
 
     clangd = {
@@ -179,7 +223,10 @@ in
     };
 
     pyright = {
-      cmd = [ "${pkgs.pyright}/bin/pyright-langserver" "--stdio" ];
+      cmd = [
+        "${pkgs.pyright}/bin/pyright-langserver"
+        "--stdio"
+      ];
     };
 
     terraformls = {
@@ -187,7 +234,10 @@ in
     };
 
     tailwindcss = {
-      cmd = [ "${pkgs.tailwindcss-language-server}/bin/tailwindcss-language-server" "--stdio" ];
+      cmd = [
+        "${pkgs.tailwindcss-language-server}/bin/tailwindcss-language-server"
+        "--stdio"
+      ];
     };
 
   };

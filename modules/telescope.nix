@@ -1,4 +1,6 @@
-{ pkgs, dsl, ... }: with dsl; {
+{ pkgs, dsl, ... }:
+with dsl;
+{
 
   plugins = with pkgs.vimPlugins; [
     telescope-nvim
@@ -48,16 +50,26 @@
       path_display = [ "truncate" ];
       winblend = 0;
       border = { };
-      borderchars = [ "─" "│" "─" "│" "╭" "╮" "╯" "╰" ];
+      borderchars = [
+        "─"
+        "│"
+        "─"
+        "│"
+        "╭"
+        "╮"
+        "╯"
+        "╰"
+      ];
       color_devicons = true;
       use_less = true;
-      set_env = { "COLORTERM" = "truecolor"; };
+      set_env = {
+        "COLORTERM" = "truecolor";
+      };
       #file_previewer = require("telescope.previewers").vim_buffer_cat.new;
       #grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new;
       #qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new;
       #buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker;
     };
-
 
   };
 

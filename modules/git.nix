@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   plugins = with pkgs.vimPlugins; [
     diffview-nvim
@@ -10,8 +11,14 @@
 
   setup.neogit = {
     signs = {
-      section = [ "" "" ];
-      item = [ "" "" ];
+      section = [
+        ""
+        ""
+      ];
+      item = [
+        ""
+        ""
+      ];
     };
 
     integrations.diffview = true;
