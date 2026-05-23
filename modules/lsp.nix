@@ -143,7 +143,6 @@ in
     denols = {
       cmd = [ (getExe pkgs.deno) "lsp" ];
       root_dir = dsl.rawLua "require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')";
-      single_file_support = false;
       suggest = {
         imports = {
           hosts = {
