@@ -89,7 +89,7 @@ let
     (
       let
 
-        packageLinks = (packageName: { start ? [ ], opt ? [ ] }:
+        packageLinks = packageName: { start ? [ ], opt ? [ ] }:
           let
             depsOfOptionalPlugins = lib.subtractLists opt (findDependenciesRecursively opt);
             startWithDeps = findDependenciesRecursively start;
@@ -106,13 +106,12 @@ let
           ++ lib.optionals (python3Env != null) [
             "mkdir -p $out/pack/${packageName}/start/__python3_dependencies"
             "ln -s ${python3Env}/${python3Env.sitePackages} $out/pack/${packageName}/start/__python3_dependencies/python3"
-          ]
-        );
+          ];
 
         packDir = stdenv.mkDerivation {
           name = "vim-pack-dir";
           src = ./.;
-          installPhase = (lib.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList packageLinks packages)));
+          installPhase = lib.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList packageLinks packages));
           preferLocalBuild = true;
         };
       in

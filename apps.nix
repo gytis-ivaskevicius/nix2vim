@@ -3,7 +3,7 @@ let
   generateMarkdown = optionsFile:
     let
       dsl = import ./lib/dsl.nix { inherit lib; };
-      options = (pkgs.lib.evalModules {
+      inherit ((pkgs.lib.evalModules {
         modules = [
           ./lib/wrapper.options.nix
           ./lib/api.options.nix
@@ -12,7 +12,7 @@ let
         ];
 
         specialArgs = { inherit pkgs dsl; };
-      }).options;
+      })) options;
       json = lib.filterAttrs (_: v: builtins.elem (toString optionsFile) v.declarations) (pkgs.nixosOptionsDoc { inherit options; }).optionsNix;
       parseDefinition = it: if builtins.isString it then it else if it._type == "literalExpression" then it.text else throw "Unknown definition: ${it}";
     in

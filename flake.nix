@@ -2,8 +2,8 @@
   description = "Next generation neovim configuration framework";
 
   inputs = {
-    flake-utils.url = github:numtide/flake-utils;
-    nixpkgs.url = github:NixOS/nixpkgs;
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs";
   };
 
   outputs = { self, flake-utils, nixpkgs }:
@@ -16,7 +16,7 @@
 
         neovimBuilder = import ./lib/neovim-builder.nix {
           pkgs = final;
-          lib = final.lib;
+          inherit (final) lib;
         };
 
         nix2vimDemo = final.neovimBuilder {

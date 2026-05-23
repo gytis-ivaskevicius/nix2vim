@@ -81,7 +81,7 @@ in
     };
 
     packages = mkOption {
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule {
         options.start = mkOption {
           type = types.listOf types.package;
           default = [ ];
@@ -99,7 +99,7 @@ in
             with pkgs.vimPlugins; [ dracula-vim ]
           '';
         };
-      }));
+      });
       default = { };
       description = "Attributes gets passed to 'configure.packages'";
       example = literalExpression ''

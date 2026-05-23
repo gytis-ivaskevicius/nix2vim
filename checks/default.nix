@@ -137,8 +137,8 @@ in
 
   attrs2Lua =
     let
-      expected = (lib.removePrefix "\n" (builtins.readFile ./attrs2lua.lua));
-      result = (attrs2Lua { a = flatten1; });
+      expected = lib.removePrefix "\n" (builtins.readFile ./attrs2lua.lua);
+      result = attrs2Lua { a = flatten1; };
     in
     isEqual expected result;
 
