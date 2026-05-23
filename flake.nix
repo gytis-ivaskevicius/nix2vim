@@ -6,7 +6,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
   };
 
-  outputs = { self, flake-utils, nixpkgs }:
+  outputs =
+    {
+      self,
+      flake-utils,
+      nixpkgs,
+    }:
     let
       dsl = import ./lib/dsl.nix { inherit (nixpkgs) lib; };
 
@@ -38,7 +43,6 @@
         };
       };
 
-
     in
     {
       inherit overlay;
@@ -47,8 +51,9 @@
         path = ./template;
         description = "A very basic neovim configuration";
       };
-    } //
-    flake-utils.lib.eachDefaultSystem (system:
+    }
+    // flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -58,8 +63,14 @@
       in
       {
         packages.default = pkgs.nix2vimDemo;
-        apps = import ./apps.nix { inherit pkgs; utils = flake-utils.lib; };
-        checks = import ./checks { inherit pkgs dsl; check-utils = import ./check-utils.nix; };
+        apps = import ./apps.nix {
+          inherit pkgs;
+          utils = flake-utils.lib;
+        };
+        checks = import ./checks {
+          inherit pkgs dsl;
+          check-utils = import ./check-utils.nix;
+        };
       }
     );
 

@@ -9,9 +9,15 @@
     nix2vim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-
-  outputs = { self, nixpkgs, nix2vim, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix2vim,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -36,5 +42,6 @@
           '';
 
         };
-      });
+      }
+    );
 }

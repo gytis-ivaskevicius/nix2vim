@@ -12,4 +12,3 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v11
       - uses: DeterminateSystems/magic-nix-cache-action@v2
       - run: nix flake check
-      - run: nix run nixpkgs#statix -- check

@@ -1,12 +1,26 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) replaceStrings mkOption types literalExpression flatten mapAttrsToList mapAttrs filterAttrs concatStringsSep filter attrValues;
-  mkMappingOption = description: example: mkOption {
-    inherit description example;
-    default = { };
-    type = with types; attrsOf (nullOr str);
-  };
+  inherit (lib)
+    replaceStrings
+    mkOption
+    types
+    literalExpression
+    flatten
+    mapAttrsToList
+    mapAttrs
+    filterAttrs
+    concatStringsSep
+    filter
+    attrValues
+    ;
+  mkMappingOption =
+    description: example:
+    mkOption {
+      inherit description example;
+      default = { };
+      type = with types; attrsOf (nullOr str);
+    };
 in
 {
   options = {
@@ -28,7 +42,14 @@ in
       };
       default = { };
       description = "'vim.opt' alias. Acts same as vimscript 'set' command";
-      type = with types; attrsOf (oneOf [ bool float int str ]);
+      type =
+        with types;
+        attrsOf (oneOf [
+          bool
+          float
+          int
+          str
+        ]);
     };
 
     function = mkOption {
@@ -58,7 +79,7 @@ in
     };
 
     setup = mkOption {
-      description = ''Results in 'require(<name>).setup(<attrs>)'.'';
+      description = "Results in 'require(<name>).setup(<attrs>)'.";
       type = with types; attrsOf attrs;
       example = literalExpression ''
         setup.lsp_signature = {
@@ -180,17 +201,23 @@ in
 
       filterNonNull = mappings: filterAttrs (name: value: value != null) mappings;
 
-      mapping = mode: lhs: rhs: args: "map('${mode}', '${lhs}', '${rhs}', ${dsl.nix2lua args})\n";
-      remap = mode: lhs: rhs: "map('${mode}', '${lhs}', '${rhs}', {})\n";
-      noremap = mode: lhs: rhs: mapping mode lhs rhs { noremap = true; };
+      mapping =
+        mode: lhs: rhs: args:
+        "map('${mode}', '${lhs}', '${rhs}', ${dsl.nix2lua args})
+";
+      remap =
+        mode: lhs: rhs:
+        "map('${mode}', '${lhs}', '${rhs}', {})
+";
+      noremap =
+        mode: lhs: rhs:
+        mapping mode lhs rhs { noremap = true; };
 
       attrsToStr = f: it: concatStringsSep "" (filter (it: it != [ ]) (attrValues (mapAttrs f it)));
 
-      aggregateMappings = mapingFunction: args: attrsToStr
-        (mode: bindings:
-          attrsToStr (lhs: rhs: mapingFunction mode lhs rhs) bindings
-        )
-        args;
+      aggregateMappings =
+        mapingFunction: args:
+        attrsToStr (mode: bindings: attrsToStr (lhs: rhs: mapingFunction mode lhs rhs) bindings) args;
 
       noremaps = aggregateMappings noremap {
         n = config.nnoremap;
@@ -214,23 +241,24 @@ in
         t = config.tmap;
       };
 
-      requireBuilder = name: name_inner: value_inner:
+      requireBuilder =
+        name: name_inner: value_inner:
         let
           varName = replaceStrings [ "-" "." ] [ "_" "_" ] name;
         in
         ''
           local ${varName} = require('${name}')
-          ${varName}.${dsl.attrs2Lua {${name_inner} = value_inner; }}
+          ${varName}.${dsl.attrs2Lua { ${name_inner} = value_inner; }}
         '';
 
-      functions = mapAttrsToList
-        (name: value: ''
-          function ${name}()
-            ${value}
-          end
-        '')
-        config.function;
-      require = flatten (mapAttrsToList (name: value: mapAttrsToList (requireBuilder name) value) config.use);
+      functions = mapAttrsToList (name: value: ''
+        function ${name}()
+          ${value}
+        end
+      '') config.function;
+      require = flatten (
+        mapAttrsToList (name: value: mapAttrsToList (requireBuilder name) value) config.use
+      );
     in
     {
       vim.opt = config.set;

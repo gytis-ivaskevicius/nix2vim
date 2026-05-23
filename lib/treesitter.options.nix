@@ -1,7 +1,19 @@
-{ lib, pkgs, dsl, config, ... }:
+{
+  lib,
+  pkgs,
+  dsl,
+  config,
+  ...
+}:
 
 let
-  inherit (lib) mkIf types mkOption mkEnableOption literalExpression;
+  inherit (lib)
+    mkIf
+    types
+    mkOption
+    mkEnableOption
+    literalExpression
+    ;
   cfg = config.treesitter;
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
@@ -54,7 +66,6 @@ in
       '';
     };
   };
-
 
   config = mkIf cfg.enable {
     plugins = [ cfg.package ];

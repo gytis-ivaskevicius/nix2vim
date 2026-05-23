@@ -1,6 +1,20 @@
-{ pkgs, config, lib, dsl, ... }: with dsl;
+{
+  pkgs,
+  config,
+  lib,
+  dsl,
+  ...
+}:
+with dsl;
 let
-  inherit (lib) getExe types mkOption mapAttrs literalExpression removeAttrs;
+  inherit (lib)
+    getExe
+    types
+    mkOption
+    mapAttrs
+    literalExpression
+    removeAttrs
+    ;
   cfg = config.lspconfig;
   capabilities = rawLua "capabilities";
 in
@@ -27,7 +41,6 @@ in
         ]
       '';
     };
-
 
     lsp = mkOption {
       type = types.attrsOf types.attrs;
@@ -61,11 +74,17 @@ in
     lua = ''
       local capabilities = vim.tbl_deep_extend(
         'force',
-        ${lib.concatStringsSep ",\n  " cfg.capabilities}
+        ${lib.concatStringsSep ",
+  " cfg.capabilities}
       );
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value:
-        let
-          serverConfig = { inherit capabilities; }
+      ${lib.concatStringsSep "
+" (
+        lib.mapAttrsToList (
+          name: value:
+          let
+            serverConfig = {
+              inherit capabilities;
+            }
             // (removeAttrs value [ "on_attach" ])
             // lib.optionalAttrs (value ? on_attach) {
               on_attach = dsl.rawLua ''
@@ -74,15 +93,15 @@ in
                 end
               '';
             };
-        in
-        ''
-          vim.lsp.config('${name}', ${dsl.nix2lua serverConfig})
-          vim.lsp.enable('${name}')
-        ''
-      ) cfg.lsp)}
+          in
+          ''
+            vim.lsp.config('${name}', ${dsl.nix2lua serverConfig})
+            vim.lsp.enable('${name}')
+          ''
+        ) cfg.lsp
+      )}
     '';
 
   };
-
 
 }

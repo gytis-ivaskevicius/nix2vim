@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   plugins = with pkgs.vimPlugins; [ nvim-tree-lua ];
 
