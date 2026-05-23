@@ -59,7 +59,7 @@ in
   config = mkIf cfg.enable {
     plugins = [ cfg.package ];
 
-    setup."nvim-treesitter.configs" = cfg.options;
+    setup."nvim-treesitter" = cfg.options;
 
     lua = ''
       vim.opt.runtimepath:append("${cfg.package}")

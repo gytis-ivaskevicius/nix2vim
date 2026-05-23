@@ -1,6 +1,6 @@
 { pkgs, config, lib, dsl, ... }: with dsl;
 let
-  inherit (lib) getExe types mkOption mapAttrs literalExpression;
+  inherit (lib) getExe types mkOption mapAttrs literalExpression removeAttrs;
   cfg = config.lspconfig;
   capabilities = rawLua "capabilities";
 in
@@ -58,25 +58,28 @@ in
       nvim-lspconfig
     ];
 
-    use.lspconfig = mapAttrs
-      (_: value: {
-        setup = dsl.callWith ({ inherit capabilities; }
-          // value
-          // lib.optionalAttrs (value ? on_attach) {
-          on_attach = dsl.rawLua ''
-            function(client, bufnr)
-              ${value.on_attach}
-            end
-          '';
-        });
-      })
-      cfg.lsp;
-
     lua = ''
       local capabilities = vim.tbl_deep_extend(
         'force',
         ${lib.concatStringsSep ",\n  " cfg.capabilities}
       );
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value:
+        let
+          serverConfig = { inherit capabilities; }
+            // (removeAttrs value [ "on_attach" ])
+            // lib.optionalAttrs (value ? on_attach) {
+              on_attach = dsl.rawLua ''
+                function(client, bufnr)
+                  ${value.on_attach}
+                end
+              '';
+            };
+        in
+        ''
+          vim.lsp.config('${name}', ${dsl.nix2lua serverConfig})
+          vim.lsp.enable('${name}')
+        ''
+      ) cfg.lsp)}
     '';
 
   };
