@@ -62,7 +62,18 @@
         };
       in
       {
-        packages.default = pkgs.nix2vimDemo;
+        packages = {
+          default = pkgs.nix2vimDemo;
+          inherit
+            (
+              (import ./docs.nix {
+                inherit pkgs;
+                inherit (pkgs) lib;
+              })
+            )
+            mdbookDocs
+            ;
+        };
         apps = import ./apps.nix {
           inherit pkgs;
           utils = flake-utils.lib;

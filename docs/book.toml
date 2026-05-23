@@ -1,0 +1,5 @@
+[book]
+authors = ["Gytis Ivaskevicius"]
+language = "en"
+src = "src"
+title = "nix2vim — Nix to Neovim Configuration Framework"
